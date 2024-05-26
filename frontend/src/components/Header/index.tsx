@@ -285,47 +285,6 @@ const Header = () => {
                     </svg>
                   </span>
                 </button>
-                (
-                  <>
-                    {pathUrl !== "/" ? (
-                      <>
-                        <Link
-                          href="/signin"
-                          className="px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white"
-                        >
-                          Sign In
-                        </Link>
-                        <Link
-                          href="/signup"
-                          className="rounded-lg bg-primary px-6 py-3 text-base font-medium text-white duration-300 ease-in-out hover:bg-primary/90 dark:bg-white/10 dark:hover:bg-white/20"
-                        >
-                          Sign Up
-                        </Link>
-                      </>
-                    ) : (
-                      <>
-                        <Link
-                          href="/signin"
-                          className={`px-7 py-3 text-base font-medium hover:opacity-70 ${
-                            sticky ? "text-dark dark:text-white" : "text-white"
-                          }`}
-                        >
-                          Sign In
-                        </Link>
-                        <Link
-                          href="/signup"
-                          className={`rounded-lg px-6 py-3 text-base font-medium text-white duration-300 ease-in-out ${
-                            sticky
-                              ? "bg-primary hover:bg-primary/90 dark:bg-white/10 dark:hover:bg-white/20"
-                              : "bg-white/10 hover:bg-white/20"
-                          }`}
-                        >
-                          Sign Up
-                        </Link>
-                      </>
-                    )}
-                  </>
-                )
               </div>
             </div>
           </div>

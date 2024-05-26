@@ -53,15 +53,6 @@ const recommendations: Recommendation[] = [
 const Horizontal: React.FC = () => {
   return (
     <div className="dark:bg-gray-900 dark:text-white">
-      <section className="bg-cover bg-center h-screen" style={{ backgroundImage: "url('https://via.placeholder.com/1920x1080')" }}>
-        <div className="bg-black bg-opacity-50 h-full flex items-center">
-          <div className="container mx-auto text-center text-white">
-            <h2 className="text-4xl font-bold mb-4">Transforming Canada's Health Care System</h2>
-            <p className="text-xl mb-6">Discover the Canadian Medical Association's recommendations to improve primary care for all Canadians.</p>
-            <a href="#recommendations" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Learn More</a>
-          </div>
-        </div>
-      </section>
       <section id="recommendations" className="py-16 bg-white dark:bg-gray-900 dark:text-white">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">CMA's Recommendations</h2>
