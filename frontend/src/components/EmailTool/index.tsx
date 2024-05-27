@@ -91,8 +91,8 @@ const PublicEmailTool: React.FC = () => {
 
     const url =
       endpoint === 'Google'
-        ? `https://app1.rameshkrishna459.workers.dev/LangChainGooglePrompt?${queryParams}`
-        : `https://app1.rameshkrishna459.workers.dev/langChainPrompt?${queryParams}`;
+        ? `https://app1.sharknode.workers.dev/LangChainGooglePrompt?${queryParams}`
+        : `https://app1.sharknode.workers.dev/langChainPrompt?${queryParams}`;
 
     const source = new EventSource(url);
     setIsStreaming(true);

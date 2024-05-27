@@ -41,7 +41,7 @@ const ResearchTool: React.FC = () => {
       model
     }).toString();
 
-    const url = `https://app1.rameshkrishna459.workers.dev/Analysis?${queryParams}`;
+    const url = `https://app1.sharknode.workers.dev/Analysis?${queryParams}`;
     
     const source = new EventSource(url);
     setIsStreaming(true);
