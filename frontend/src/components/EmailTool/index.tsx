@@ -365,7 +365,7 @@ const PublicEmailTool: React.FC = () => {
 
         <button
           onClick={() => setData('')}
-          className="flex-1 inline-block bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-6 rounded transition-all duration-200 ease-in-out"
+          className="flex-1 inline-block bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-6 rounded transition-all duration-200 hover:scale-105 ease-in-out"
           disabled={!cookiesEnabled}
         >
           Clear Data
