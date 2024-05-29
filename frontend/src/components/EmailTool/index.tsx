@@ -119,7 +119,7 @@ const PublicEmailTool: React.FC = () => {
       endpoint === 'Google'
         ? `https://api.sharknode.workers.dev/LangChainGooglePrompt?${queryParams}`
         : `https://api.sharknode.workers.dev/langChainPrompt?${queryParams}`;
-
+    setIsStreaming(true);
     let allSources = '<br>All Sources: </br>'; // Initialize a variable to store all sources
     await fetchEventSource(url, {
       headers: {
@@ -128,7 +128,6 @@ const PublicEmailTool: React.FC = () => {
       credentials: 'include', // Ensure cookies are sent with the request
       onmessage(event) {
         console.log(event.data);
-        setIsStreaming(true);
         const eventData = JSON.parse(event.data);
         if (eventData.status === 'DONE') {
           setData((prevData: string) => prevData + allSources);
