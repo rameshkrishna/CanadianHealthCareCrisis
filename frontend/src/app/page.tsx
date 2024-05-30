@@ -12,13 +12,13 @@ import Hero from "@/components/Hero";
 // import Testimonials from "@/components/Testimonials";
 import { getAllPosts } from "@/utils/markdown";
 import { Metadata } from "next";
-import PublicEmailTool from "@/components/EmailTool"
+import PublicEmailTool from "@/components/EmailTool";
 import Horizontal from "@/components/Recommendations";
 import Timeline from "@/components/Recommendations/Timeline";
 import RecCards from "@/components/Recommendations/RecCards";
 import MediaMentionsAboutHealthCare from "@/components/MediaMentionsAboutHealthCare";
 
-import ScrollingLogos  from "@/components/ScrollingLogos";
+import ScrollingLogos from "@/components/ScrollingLogos";
 export const metadata: Metadata = {
   title: "Canadian Health Crisis",
   description: "Canadian Health Crisis",
@@ -31,9 +31,9 @@ export default function Home() {
     <main>
       <ScrollUp />
       <Hero />
-      <Timeline/>
-      <PublicEmailTool/>
-      <MediaMentionsAboutHealthCare/>
+      <Timeline />
+      <PublicEmailTool />
+      <MediaMentionsAboutHealthCare />
       {/* <Horizontal/> */}
       {/* <Reports/>
       <ScrollingLogos/> */}

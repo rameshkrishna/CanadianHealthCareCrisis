@@ -21,8 +21,8 @@ const Hero = () => {
                 <DynamicHealthCareMessage />
 
                 <p className="mx-auto mb-9 max-w-[600px] text-base font-medium text-white sm:text-lg sm:leading-[1.44]">
-                  We've compiled the stats from trusted sources to show you how broken Our Canadian
-                  healthcare system really is.
+                  We've compiled the stats from trusted sources to show you how
+                  broken Our Canadian healthcare system really is.
                 </p>
                 <ul className="mb-10 flex flex-wrap items-center justify-center gap-5">
                   <li>

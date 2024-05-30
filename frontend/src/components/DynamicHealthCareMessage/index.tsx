@@ -1,6 +1,6 @@
-"use client"
-import React from 'react';
-import { ReactTyped } from 'react-typed';
+"use client";
+import React from "react";
+import { ReactTyped } from "react-typed";
 
 const issues = [
   "is Broken",
@@ -43,32 +43,33 @@ const issues = [
   "Crisis Worsening",
   "at Breaking Point",
   "Reform Urgently Needed",
-  "in Dire Straits"
+  "in Dire Straits",
 ];
-
 
 const DynamicHealthCareMessage = () => {
   return (
     <>
-    {/* <div className="bg-purple-600 inline-block rounded-full px-4 py-1 text-sm font-semibold mb-4">
+      {/* <div className="bg-purple-600 inline-block rounded-full px-4 py-1 text-sm font-semibold mb-4">
           New
           <span className="ml-2 text-gray-300">
               Want to contribute? You can do that <a href="#" className="text-purple-300 underline">here</a>
           </span>
       </div> */}
       <h1 className="mb-6 text-3xl leading-snug text-white sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]">
-              Canadian Health Care System
-              <br />
-              <span className="uppercase bg-gradient-to-r from-fuchsia-600 via-violet-600 to-pink-600 bg-clip-text text-transparent">
-                  <ReactTyped
-                      strings={issues}
-                      typeSpeed={100}
-                      backSpeed={50}
-                      loop
-                      cursorChar="|"
-                      showCursor={true} />
-              </span>
-          </h1></>
+        Canadian Health Care System
+        <br />
+        <span className="bg-gradient-to-r from-fuchsia-600 via-violet-600 to-pink-600 bg-clip-text uppercase text-transparent">
+          <ReactTyped
+            strings={issues}
+            typeSpeed={100}
+            backSpeed={50}
+            loop
+            cursorChar="|"
+            showCursor={true}
+          />
+        </span>
+      </h1>
+    </>
   );
 };
 
