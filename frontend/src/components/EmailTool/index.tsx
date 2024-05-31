@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { z } from "zod";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
-
+import { sendGTMEvent } from "@next/third-parties/google";
 // Define the validation schema
 const formSchema = z.object({
   issues: z.string().nonempty("Issues are required"),
@@ -123,6 +123,7 @@ const PublicEmailTool: React.FC = () => {
         ? `https://api.sharknode.workers.dev/LangChainGooglePrompt?${queryParams}`
         : `https://api.sharknode.workers.dev/langChainPrompt?${queryParams}`;
     setIsStreaming(true);
+    sendGTMEvent({ event: "Streaming Start", value: "Streaming Start" });
     let allSources = "<br>All Sources: </br>"; // Initialize a variable to store all sources
     await fetchEventSource(url, {
       headers: {
@@ -135,6 +136,7 @@ const PublicEmailTool: React.FC = () => {
         if (eventData.status === "DONE") {
           setData((prevData: string) => prevData + allSources);
           setIsStreaming(false);
+          sendGTMEvent({ event: "Streaming Done", value: "Streaming Done" });
           return;
         }
         if (eventData.response) {
@@ -152,6 +154,7 @@ const PublicEmailTool: React.FC = () => {
         setIsStreaming(false);
       },
       onerror(err) {
+        sendGTMEvent({ event: "Streaming Error", value: "Streaming Error" });
         console.error("EventSource failed:", err);
         setIsStreaming(false);
       },
