@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 import menuData from "./menuData";
 
 const Header = () => {
-
-
   const pathUrl = usePathname();
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);

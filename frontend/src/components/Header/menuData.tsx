@@ -24,6 +24,6 @@ const menuData: Menu[] = [
     title: "Blog",
     path: "/blogs",
     newTab: false,
-  }
+  },
 ];
 export default menuData;
