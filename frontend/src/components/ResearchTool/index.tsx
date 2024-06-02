@@ -39,7 +39,7 @@ const ResearchTool: React.FC = () => {
       model,
     }).toString();
 
-    const url = `https://api.sharknode.workers.dev/Analysis?${queryParams}`;
+    const url = `https://api.canadianhealthcarecrisis.com/Analysis?${queryParams}`;
 
     const source = new EventSource(url);
     setIsStreaming(true);
