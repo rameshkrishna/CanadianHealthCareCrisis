@@ -2,7 +2,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { z } from "zod";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
-import { sendGTMEvent } from "@next/third-parties/google";
+// import { sendGTMEvent } from "@next/third-parties/google";
+import { event } from "nextjs-google-analytics";
+
 // Define the validation schema
 const formSchema = z.object({
   issues: z.string().nonempty("Issues are required"),
@@ -51,7 +53,7 @@ const PublicEmailTool: React.FC = () => {
     const fetchCsrfToken = async () => {
       if (cookiesEnabled) {
         const response = await fetch(
-          "https://api.sharknode.workers.dev/generate-token",
+          "https://api.canadianhealthcarecrisis.com/generate-token",
           {
             credentials: "include",
           },
@@ -74,6 +76,16 @@ const PublicEmailTool: React.FC = () => {
       window.getSelection()?.removeAllRanges();
       setShowSuccessAlert(true); // Show success alert
       setTimeout(() => setShowSuccessAlert(false), 3000); // Hide alert after 2 seconds
+      // sendGTMEvent({
+      //   event: "streaming_copy_GTM",
+      //   value: "xyz",
+      //   category: "Email",
+      //   label: "CopyEmail",
+      // });
+      event("streaming_copy", {
+        category: "Email",
+        label: "CopyEmail",
+      });
     }
   };
 
@@ -120,11 +132,17 @@ const PublicEmailTool: React.FC = () => {
 
     const url =
       endpoint === "Google"
-        ? `https://api.sharknode.workers.dev/LangChainGooglePrompt?${queryParams}`
-        : `https://api.sharknode.workers.dev/langChainPrompt?${queryParams}`;
+        ? `https://api.canadianhealthcarecrisis.com/LangChainGooglePrompt?${queryParams}`
+        : `https://api.canadianhealthcarecrisis.com/langChainPrompt?${queryParams}`;
     setIsStreaming(true);
-    sendGTMEvent({ event: "Streaming Start", value: "Streaming Start" });
+    // sendGTMEvent({ event: "Streaming_Start", value: "Streaming_Start" });
+    // sendGTMEvent({ event: "buttonClicked", value: "xyz" });
+    event("streaming_start", {
+      category: "Email",
+      label: "Streaming",
+    });
     let allSources = "<br>All Sources: </br>"; // Initialize a variable to store all sources
+    const uniqueSources = new Set();
     await fetchEventSource(url, {
       headers: {
         "X-CSRF-Token": csrfToken,
@@ -136,7 +154,6 @@ const PublicEmailTool: React.FC = () => {
         if (eventData.status === "DONE") {
           setData((prevData: string) => prevData + allSources);
           setIsStreaming(false);
-          sendGTMEvent({ event: "Streaming Done", value: "Streaming Done" });
           return;
         }
         if (eventData.response) {
@@ -146,17 +163,26 @@ const PublicEmailTool: React.FC = () => {
           );
         }
         const formattedSource = eventData.source;
-        if (formattedSource) {
-          allSources += formattedSource + "<br>"; // Accumulate sources
+        if (formattedSource && !uniqueSources.has(formattedSource)) {
+          uniqueSources.add(formattedSource);
+          allSources += formattedSource + "<br>";
         }
       },
       onclose() {
         setIsStreaming(false);
+        event("streaming_closed", {
+          category: "Email",
+          label: "Close",
+        });
       },
       onerror(err) {
-        sendGTMEvent({ event: "Streaming Error", value: "Streaming Error" });
+        // sendGTMEvent({ event: "Streaming_Error", value: "Streaming_Error" });
         console.error("EventSource failed:", err);
         setIsStreaming(false);
+        event("streaming_error", {
+          category: "Email",
+          label: "Error",
+        });
       },
     });
   };

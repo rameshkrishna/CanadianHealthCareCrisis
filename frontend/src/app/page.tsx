@@ -20,8 +20,8 @@ import MediaMentionsAboutHealthCare from "@/components/MediaMentionsAboutHealthC
 
 import ScrollingLogos from "@/components/ScrollingLogos";
 export const metadata: Metadata = {
-  title: "Canadian Health Crisis",
-  description: "Canadian Health Crisis",
+  title: "Canadian Health Care Crisis",
+  description: "Learn Dire State of Canadian Health Crisis",
 };
 
 export default function Home() {
