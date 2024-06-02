@@ -33,6 +33,8 @@ const PublicEmailTool: React.FC = () => {
   const [experience, setExperience] = useState<string>("");
   const [language, setLanguage] = useState<string>("en"); // Default language is English
   const [endpoint, setEndpoint] = useState<string>("Google"); // Default endpoint is Google
+  const [emailSubject, setEmailSubject] = useState<string>("");
+  const [toEmail, setToEmail] = useState<string>("");
 
   const [errors, setErrors] = useState<any>({});
   const [showSuccessAlert, setShowSuccessAlert] = useState<boolean>(false);
@@ -185,6 +187,14 @@ const PublicEmailTool: React.FC = () => {
         });
       },
     });
+  };
+
+  const handleSendEmail = () => {
+    const body = data.replace(/<br\s*\/?>/gi, "\n");
+    const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(
+      emailSubject,
+    )}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
   };
 
   return (
@@ -411,6 +421,42 @@ const PublicEmailTool: React.FC = () => {
         <p className="text-sm text-red-600">{errors.followup}</p>
       )}
 
+      <label
+        htmlFor="emailSubject"
+        className="mb-2 mt-4 block text-balance text-lg font-semibold"
+      >
+        Email Subject:
+      </label>
+      <input
+        type="text"
+        id="emailSubject"
+        value={emailSubject}
+        onChange={(e) => setEmailSubject(e.target.value)}
+        className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        disabled={!cookiesEnabled}
+      />
+      {errors.emailSubject && (
+        <p className="text-sm text-red-600">{errors.emailSubject}</p>
+      )}
+
+      <label
+        htmlFor="toEmail"
+        className="mb-2 mt-4 block text-balance text-lg font-semibold"
+      >
+        To Email:
+      </label>
+      <input
+        type="text"
+        id="toEmail"
+        value={toEmail}
+        onChange={(e) => setToEmail(e.target.value)}
+        className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        disabled={!cookiesEnabled}
+      />
+      {errors.toEmail && (
+        <p className="text-sm text-red-600">{errors.toEmail}</p>
+      )}
+
       <div className="mt-6 flex flex-col gap-4 md:flex-row">
         <button
           onClick={handleButtonClick}
@@ -462,6 +508,13 @@ const PublicEmailTool: React.FC = () => {
           disabled={!cookiesEnabled}
         >
           Copy AI Email to Clipboard
+        </button>
+        <button
+          onClick={handleSendEmail}
+          className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
+          disabled={!cookiesEnabled}
+        >
+          Send Email
         </button>
       </div>
       {showSuccessAlert && (
