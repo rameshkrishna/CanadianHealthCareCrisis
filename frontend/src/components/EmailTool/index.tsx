@@ -190,6 +190,9 @@ const PublicEmailTool: React.FC = () => {
   };
 
   const handleSendEmail = () => {
+    if (isStreaming || !csrfToken) {
+      return; // Wait until streaming is done | reject until then
+    }
     const body = data.replace(/<br\s*\/?>/gi, "\n");
     const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(
       emailSubject,
@@ -505,14 +508,14 @@ const PublicEmailTool: React.FC = () => {
         <button
           onClick={handleCopyToClipboard}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
-          disabled={!cookiesEnabled}
+          disabled={isStreaming || !cookiesEnabled}
         >
           Copy AI Email to Clipboard
         </button>
         <button
           onClick={handleSendEmail}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
-          disabled={!cookiesEnabled}
+          disabled={isStreaming || !cookiesEnabled}
         >
           Send Email
         </button>
