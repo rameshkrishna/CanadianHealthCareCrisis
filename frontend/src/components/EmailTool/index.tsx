@@ -191,11 +191,19 @@ const PublicEmailTool: React.FC = () => {
 
   const handleSendEmail = () => {
     if (isStreaming || !csrfToken) {
-      return; // Wait until streaming is done | reject until then
+      return; // Wait until streaming is done | reject
     }
-    const body = data.replace(/<br\s*\/?>/gi, "\n");
+    let body = data.replace(/<br\s*\/?>/gi, "\n");
+    const regex = /Subject:\s*(.*)/;
+    const match = body.match(regex);
+    let subject = "";
+    if (match) {
+      subject = match[1].trim();
+      body = body.replace(regex, "");
+      console.log(subject);
+    }
     const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(
-      emailSubject,
+      subject,
     )}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;
   };
@@ -508,14 +516,14 @@ const PublicEmailTool: React.FC = () => {
         <button
           onClick={handleCopyToClipboard}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
-          disabled={isStreaming || !cookiesEnabled}
+          disabled={!cookiesEnabled}
         >
           Copy AI Email to Clipboard
         </button>
         <button
           onClick={handleSendEmail}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
-          disabled={isStreaming || !cookiesEnabled}
+          disabled={!cookiesEnabled}
         >
           Send Email
         </button>
