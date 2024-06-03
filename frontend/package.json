@@ -11,6 +11,7 @@
   "dependencies": {
     "@microsoft/fetch-event-source": "^2.0.1",
     "@next/third-parties": "^14.2.3",
+    "@types/react-select": "^5.0.1",
     "axios": "^1.6.2",
     "bcrypt": "^5.0.1",
     "date-fns": "^3.4.0",
@@ -19,6 +20,7 @@
     "next-themes": "^0.3.0",
     "nextjs-google-analytics": "^2.3.3",
     "nodemailer": "^6.9.12",
+    "papaparse": "^5.4.1",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
     "react": "^18",
@@ -36,6 +38,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.11.27",
     "@types/nodemailer": "^6.4.14",
+    "@types/papaparse": "^5.3.14",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",

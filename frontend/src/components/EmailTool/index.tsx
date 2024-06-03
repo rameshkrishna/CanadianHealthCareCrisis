@@ -2,8 +2,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { z } from "zod";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
-// import { sendGTMEvent } from "@next/third-parties/google";
 import { event } from "nextjs-google-analytics";
+import Papa from "papaparse";
 
 // Define the validation schema
 const formSchema = z.object({
@@ -18,6 +18,17 @@ const formSchema = z.object({
   language: z.enum(["en", "fr"]),
   endpoint: z.enum(["Google", "OpenAI"]),
 });
+
+interface Contact {
+  Name: string;
+  PoliticalAffiliation: string;
+  Constituency: string;
+  ProvinceTerritory: string;
+  PreferredLanguage: string;
+  Contact: string;
+  Telephone: string;
+  Url: string;
+}
 
 const PublicEmailTool: React.FC = () => {
   const [csrfToken, setCsrfToken] = useState<string | null>(null);
@@ -39,7 +50,8 @@ const PublicEmailTool: React.FC = () => {
   const [errors, setErrors] = useState<any>({});
   const [showSuccessAlert, setShowSuccessAlert] = useState<boolean>(false);
   const [cookiesEnabled, setCookiesEnabled] = useState<boolean>(true);
-
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const dataRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -50,10 +62,12 @@ const PublicEmailTool: React.FC = () => {
     };
 
     checkCookiesEnabled();
+  }, []);
 
+  useEffect(() => {
     // Fetch CSRF token on component mount
     const fetchCsrfToken = async () => {
-      if (cookiesEnabled) {
+      if (cookiesEnabled && !csrfToken) {
         const response = await fetch(
           "https://api.canadianhealthcarecrisis.com/generate-token",
           {
@@ -66,7 +80,37 @@ const PublicEmailTool: React.FC = () => {
     };
 
     fetchCsrfToken();
-  }, [cookiesEnabled]);
+  }, [cookiesEnabled, csrfToken]);
+
+  useEffect(() => {
+    const fetchContacts = async () => {
+      try {
+        const response = await fetch(
+          "https://api.canadianhealthcarecrisis.com/contacts",
+          {
+            method: "GET",
+            headers: {
+              "X-CSRF-Token": csrfToken || "", // Ensure the token is a string
+            },
+            credentials: "include",
+          },
+        );
+
+        const csvText = await response.text();
+        const parsedData = Papa.parse<Contact>(csvText, {
+          header: true,
+          skipEmptyLines: true,
+        });
+        setContacts(parsedData.data);
+      } catch (error) {
+        console.error("Error fetching contacts:", error);
+      }
+    };
+
+    if (csrfToken) {
+      fetchContacts();
+    }
+  }, [csrfToken]);
 
   const handleCopyToClipboard = () => {
     if (dataRef.current) {
@@ -78,12 +122,6 @@ const PublicEmailTool: React.FC = () => {
       window.getSelection()?.removeAllRanges();
       setShowSuccessAlert(true); // Show success alert
       setTimeout(() => setShowSuccessAlert(false), 3000); // Hide alert after 2 seconds
-      // sendGTMEvent({
-      //   event: "streaming_copy_GTM",
-      //   value: "xyz",
-      //   category: "Email",
-      //   label: "CopyEmail",
-      // });
       event("streaming_copy", {
         category: "Email",
         label: "CopyEmail",
@@ -137,8 +175,7 @@ const PublicEmailTool: React.FC = () => {
         ? `https://api.canadianhealthcarecrisis.com/LangChainGooglePrompt?${queryParams}`
         : `https://api.canadianhealthcarecrisis.com/langChainPrompt?${queryParams}`;
     setIsStreaming(true);
-    // sendGTMEvent({ event: "Streaming_Start", value: "Streaming_Start" });
-    // sendGTMEvent({ event: "buttonClicked", value: "xyz" });
+
     event("streaming_start", {
       category: "Email",
       label: "Streaming",
@@ -178,7 +215,6 @@ const PublicEmailTool: React.FC = () => {
         });
       },
       onerror(err) {
-        // sendGTMEvent({ event: "Streaming_Error", value: "Streaming_Error" });
         console.error("EventSource failed:", err);
         setIsStreaming(false);
         event("streaming_error", {
@@ -200,7 +236,6 @@ const PublicEmailTool: React.FC = () => {
     if (match) {
       subject = match[1].trim();
       body = body.replace(regex, "");
-      console.log(subject);
     }
     const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(
       subject,
@@ -208,10 +243,19 @@ const PublicEmailTool: React.FC = () => {
     window.location.href = mailtoLink;
   };
 
+  const filteredContacts = contacts.filter((contact) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      contact.Name.toLowerCase().includes(query) ||
+      contact.ProvinceTerritory.toLowerCase().includes(query) ||
+      contact.Constituency.toLowerCase().includes(query)
+    );
+  });
+
   return (
     <div className="mx-auto mt-8 max-w-4xl rounded-lg from-transparent to-gray-100 p-6 shadow-lg dark:from-black dark:to-black">
       <h1 className="mb-6 text-center text-2xl font-bold">
-        Use this tool to Demand MP/MPP to take Action on Health Care
+        Use this tool to Demand MP to take Action on Health Care
       </h1>
 
       <p className="mb-4 text-sm text-gray-500">
@@ -361,7 +405,7 @@ const PublicEmailTool: React.FC = () => {
         htmlFor="isDoctor"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
       >
-        Are you a doctor?
+        Do you work in Health Sector?
       </label>
       <select
         id="isDoctor"
@@ -375,40 +419,46 @@ const PublicEmailTool: React.FC = () => {
       </select>
       {isDoctor && (
         <>
-          <label
-            htmlFor="profession"
-            className="mb-2 mt-4 block text-balance text-lg font-semibold"
-          >
-            Profession:
-          </label>
-          <input
-            type="text"
-            id="profession"
-            value={profession}
-            onChange={(e) => setProfession(e.target.value)}
-            className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
-            disabled={!cookiesEnabled}
-          />
-          {errors.profession && (
-            <p className="text-sm text-red-600">{errors.profession}</p>
-          )}
-          <label
-            htmlFor="experience"
-            className="mb-2 mt-4 block text-balance text-lg font-semibold"
-          >
-            Experience:
-          </label>
-          <input
-            type="text"
-            id="experience"
-            value={experience}
-            onChange={(e) => setExperience(e.target.value)}
-            className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
-            disabled={!cookiesEnabled}
-          />
-          {errors.experience && (
-            <p className="text-sm text-red-600">{errors.experience}</p>
-          )}
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <label
+                htmlFor="profession"
+                className="mb-2 mt-4 block text-balance text-lg font-semibold"
+              >
+                Profession:
+              </label>
+              <input
+                type="text"
+                id="profession"
+                value={profession}
+                onChange={(e) => setProfession(e.target.value)}
+                className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+                disabled={!cookiesEnabled}
+              />
+              {errors.profession && (
+                <p className="text-sm text-red-600">{errors.profession}</p>
+              )}
+            </div>
+            <div>
+              <label
+                htmlFor="experience"
+                className="mb-2 mt-4 block text-balance text-lg font-semibold"
+              >
+                Experience:
+              </label>
+              <input
+                type="text"
+                id="experience"
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
+                className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+                disabled={!cookiesEnabled}
+              />
+              {errors.experience && (
+                <p className="text-sm text-red-600">{errors.experience}</p>
+              )}
+            </div>
+          </div>
         </>
       )}
 
@@ -433,23 +483,39 @@ const PublicEmailTool: React.FC = () => {
       )}
 
       <label
-        htmlFor="emailSubject"
+        htmlFor="searchQuery"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
       >
-        Email Subject:
+        Search MP by Name or Province/Territory:
       </label>
       <input
         type="text"
-        id="emailSubject"
-        value={emailSubject}
-        onChange={(e) => setEmailSubject(e.target.value)}
-        className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        id="searchQuery"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        placeholder="Type MP's name or province/territory"
         disabled={!cookiesEnabled}
       />
-      {errors.emailSubject && (
-        <p className="text-sm text-red-600">{errors.emailSubject}</p>
+      {searchQuery && filteredContacts.length > 0 && (
+        <ul className="mt-4 max-h-60 overflow-y-auto rounded-md border border-gray-300 bg-gray-50 p-2 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+          {filteredContacts.map((contact, index) => (
+            <li
+              key={index}
+              className="cursor-pointer p-2 hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-700"
+              onClick={() => {
+                setSearchQuery(
+                  contact.Name + " (" + contact.ProvinceTerritory + ")",
+                );
+                setToEmail(contact.Contact);
+              }}
+            >
+              {contact.Name} ({contact.Constituency} |{" "}
+              {contact.ProvinceTerritory}) - {contact.Contact}
+            </li>
+          ))}
+        </ul>
       )}
-
       <label
         htmlFor="toEmail"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
@@ -462,7 +528,7 @@ const PublicEmailTool: React.FC = () => {
         value={toEmail}
         onChange={(e) => setToEmail(e.target.value)}
         className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
-        disabled={!cookiesEnabled}
+        disabled={true}
       />
       {errors.toEmail && (
         <p className="text-sm text-red-600">{errors.toEmail}</p>
@@ -509,21 +575,21 @@ const PublicEmailTool: React.FC = () => {
         <button
           onClick={() => setData("")}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:scale-105 hover:from-gray-600 hover:to-gray-700"
-          disabled={!cookiesEnabled}
+          disabled={isStreaming || !cookiesEnabled}
         >
           Clear Data
         </button>
         <button
           onClick={handleCopyToClipboard}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
-          disabled={!cookiesEnabled}
+          disabled={isStreaming || !cookiesEnabled}
         >
           Copy AI Email to Clipboard
         </button>
         <button
           onClick={handleSendEmail}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
-          disabled={!cookiesEnabled}
+          disabled={isStreaming || !cookiesEnabled}
         >
           Send Email
         </button>
