@@ -253,7 +253,10 @@ const PublicEmailTool: React.FC = () => {
   });
 
   return (
-    <div className="mx-auto mt-8 max-w-4xl rounded-lg from-transparent to-gray-100 p-6 shadow-lg dark:from-black dark:to-black">
+    <div
+      id="DemandActionNow"
+      className="mx-auto mt-8 max-w-4xl rounded-lg from-transparent to-gray-100 p-6 shadow-lg dark:from-black dark:to-black"
+    >
       <h1 className="mb-6 text-center text-2xl font-bold">
         Use this tool to Demand MP to take Action on Health Care
       </h1>
@@ -496,9 +499,10 @@ const PublicEmailTool: React.FC = () => {
         className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         placeholder="Type MP's name or province/territory"
         disabled={!cookiesEnabled}
+        autoComplete="new-search-query" // Using a different value
       />
       {searchQuery && filteredContacts.length > 0 && (
-        <ul className="mt-4 max-h-60 overflow-y-auto rounded-md border border-gray-300 bg-gray-50 p-2 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <ul className="mt-4 max-h-60 overflow-y-auto rounded-md border border-gray-300 bg-gray-50 p-2 text-xs shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:max-h-40 sm:text-sm">
           {filteredContacts.map((contact, index) => (
             <li
               key={index}
@@ -516,6 +520,7 @@ const PublicEmailTool: React.FC = () => {
           ))}
         </ul>
       )}
+
       <label
         htmlFor="toEmail"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
