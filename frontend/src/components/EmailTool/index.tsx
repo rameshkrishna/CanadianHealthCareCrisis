@@ -257,8 +257,8 @@ const PublicEmailTool: React.FC = () => {
       id="DemandActionNow"
       className="mx-auto mt-8 max-w-4xl rounded-lg from-transparent to-gray-100 p-6 shadow-lg dark:from-black dark:to-black"
     >
-      <h1 className="mb-6 text-center text-2xl font-bold">
-        Use this tool to Demand MP to take Action on Health Care
+      <h1 className="mb-6 text-center font-bold">
+        Use this tool to Demand your MP / MPP/ MLA to take Action on Health Care
       </h1>
 
       <p className="mb-4 text-sm text-gray-500">
