@@ -47,7 +47,7 @@ const PublicEmailTool: React.FC = () => {
   const [endpoint, setEndpoint] = useState<string>("Google"); // Default endpoint is Google
   const [emailSubject, setEmailSubject] = useState<string>("");
   const [toEmail, setToEmail] = useState<string>("");
-
+  const [mpName, setMPName] = useState<string>("");
   const [errors, setErrors] = useState<any>({});
   const [showSuccessAlert, setShowSuccessAlert] = useState<boolean>(false);
   const [cookiesEnabled, setCookiesEnabled] = useState<boolean>(true);
@@ -169,6 +169,7 @@ const PublicEmailTool: React.FC = () => {
       isDoctor: isDoctor.toString(),
       profession,
       experience,
+      mpName,
     }).toString();
 
     const url =
@@ -513,6 +514,7 @@ const PublicEmailTool: React.FC = () => {
                   contact.Name + " (" + contact.ProvinceTerritory + ")",
                 );
                 setToEmail(contact.Contact);
+                setMPName(contact.Name);
               }}
             >
               {contact.Name} ({contact.Constituency} |{" "}
