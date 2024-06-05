@@ -21,6 +21,7 @@ const formSchema = z.object({
 
 interface Contact {
   Name: string;
+  Govt: string;
   PoliticalAffiliation: string;
   Constituency: string;
   ProvinceTerritory: string;
@@ -515,7 +516,7 @@ const PublicEmailTool: React.FC = () => {
               }}
             >
               {contact.Name} ({contact.Constituency} |{" "}
-              {contact.ProvinceTerritory}) - {contact.Contact}
+              {contact.ProvinceTerritory}) - {contact.Govt}
             </li>
           ))}
         </ul>
@@ -525,7 +526,7 @@ const PublicEmailTool: React.FC = () => {
         htmlFor="toEmail"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
       >
-        To Email:
+        Your MP/MPP/MLA's Email:
       </label>
       <input
         type="text"
