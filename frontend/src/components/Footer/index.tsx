@@ -1,6 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-
 const Footer = () => {
   return (
     <footer
@@ -35,12 +32,13 @@ const Footer = () => {
                   >
                     Legal notice
                   </a>
-                  <a
-                    href="/#"
-                    className="px-3 text-base text-gray-7 hover:text-white hover:underline"
-                  >
-                    Terms of service
-                  </a>
+                </div>
+                <div className="mt-2 text-center md:text-left">
+                  <p className="text-base text-gray-7">
+                    Independent insights from trusted healthcare sources to keep
+                    you informed | <br></br>Not affiliated with any institution
+                    or company in any form
+                  </p>
                 </div>
               </div>
             </div>
