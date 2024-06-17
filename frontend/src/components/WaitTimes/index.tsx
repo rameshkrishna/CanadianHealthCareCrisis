@@ -5,40 +5,40 @@ const WaitTimes = () => {
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Median wait time */}
-        <div className="rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
+        <div className="rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white shadow-lg ">
           <h2 className="mb-2 text-lg font-semibold">Median Wait Time</h2>
           <p className="text-4xl font-bold">27.7 weeks</p>
           <p className="text-sm">From referral to treatment</p>
         </div>
 
         {/* Shortest wait time province */}
-        <div className="rounded-lg bg-gradient-to-r from-green-500 to-blue-500 p-6 text-white shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
+        <div className="rounded-lg bg-gradient-to-r from-green-500 to-blue-500 p-6 text-white shadow-lg ">
           <h2 className="mb-2 text-lg font-semibold">Shortest Wait Time</h2>
           <p className="text-4xl font-bold">21.6 weeks</p>
           <p className="text-sm">(Ontario)</p>
         </div>
 
         {/* Longest wait time province */}
-        <div className="rounded-lg bg-gradient-to-r from-pink-500 to-red-500 p-6 text-white shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
+        <div className="rounded-lg bg-gradient-to-r from-pink-500 to-red-500 p-6 text-white shadow-lg ">
           <h2 className="mb-2 text-lg font-semibold">Longest Wait Time</h2>
           <p className="text-4xl font-bold">56.7 weeks</p>
           <p className="text-sm">(Nova Scotia)</p>
         </div>
 
         {/* Wait time for CT scan */}
-        <div className="rounded-lg bg-gradient-to-r from-pink-500 to-red-500 p-6 text-white shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
+        <div className="rounded-lg bg-gradient-to-r from-pink-500 to-red-500 p-6 text-white shadow-lg ">
           <h2 className="mb-2 text-lg font-semibold">Wait Time for CT Scan</h2>
           <p className="text-4xl font-bold">6.6 weeks</p>
         </div>
 
         {/* Wait time for MRI scan */}
-        <div className="rounded-lg bg-gradient-to-r from-purple-500 to-indigo-500 p-6 text-white shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
+        <div className="rounded-lg bg-gradient-to-r from-purple-500 to-indigo-500 p-6 text-white shadow-lg ">
           <h2 className="mb-2 text-lg font-semibold">Wait Time for MRI Scan</h2>
           <p className="text-4xl font-bold">12.9 weeks</p>
         </div>
 
         {/* Wait time for ultrasound */}
-        <div className="rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 p-6 text-white shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
+        <div className="rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 p-6 text-white shadow-lg ">
           <h2 className="mb-2 text-lg font-semibold">
             Wait Time for Ultrasound
           </h2>
@@ -46,14 +46,14 @@ const WaitTimes = () => {
         </div>
 
         {/* Emergency Visits */}
-        <div className="rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 p-6 text-white shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
+        <div className="rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 p-6 text-white shadow-lg ">
           <h2 className="mb-2 text-lg font-semibold">Emergency Visits</h2>
           <p className="text-4xl font-bold">15.1 million visits</p>
           <p className="text-sm">In 2022-2023</p>
         </div>
 
         {/* Lack of Family Physician */}
-        <div className="rounded-lg bg-gradient-to-r from-pink-500 to-red-500 p-6 text-white shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
+        <div className="rounded-lg bg-gradient-to-r from-pink-500 to-red-500 p-6 text-white shadow-lg ">
           <h2 className="mb-2 text-lg font-semibold">
             Lack of Family Physician
           </h2>
@@ -62,7 +62,7 @@ const WaitTimes = () => {
         </div>
 
         {/* Physicians per 1,000 population */}
-        <div className="rounded-lg bg-gradient-to-r from-blue-500 to-green-500 p-6 text-white shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
+        <div className="rounded-lg bg-gradient-to-r from-blue-500 to-green-500 p-6 text-white shadow-lg ">
           <h2 className="mb-2 text-lg font-semibold">
             Physicians per 1,000 Population
           </h2>
