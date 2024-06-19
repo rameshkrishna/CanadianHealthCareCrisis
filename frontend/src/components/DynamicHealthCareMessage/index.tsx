@@ -61,7 +61,7 @@ const DynamicHealthCareMessage = () => {
         <span className="bg-gradient-to-r from-fuchsia-600 via-violet-600 to-pink-600 bg-clip-text uppercase text-transparent">
           <ReactTyped
             strings={issues}
-            typeSpeed={100}
+            typeSpeed={50}
             backSpeed={50}
             loop
             cursorChar="|"
