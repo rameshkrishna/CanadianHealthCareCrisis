@@ -16,7 +16,6 @@ import PublicEmailTool from "@/components/EmailTool";
 import Horizontal from "@/components/Recommendations";
 import Timeline from "@/components/Recommendations/Timeline";
 import RecCards from "@/components/Recommendations/RecCards";
-import MediaMentionsAboutHealthCare from "@/components/MediaMentionsAboutHealthCare";
 import ScrollingLogos from "@/components/ScrollingLogos";
 
 export const metadata: Metadata = {
@@ -34,7 +33,6 @@ export default function Home() {
       <Hero />
       <Timeline />
       <PublicEmailTool />
-      <MediaMentionsAboutHealthCare />
       {/* <Horizontal/> */}
       {/* <Reports/>
       <ScrollingLogos/> */}

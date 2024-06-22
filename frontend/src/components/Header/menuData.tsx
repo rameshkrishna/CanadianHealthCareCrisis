@@ -15,15 +15,21 @@ const menuData: Menu[] = [
   },
   {
     id: 3,
-    title: "Contact",
-    path: "/contact",
-    newTab: false,
+    title: "Join Discussions Now",
+    path: "https://github.com/rameshkrishna/CanadianHealthCareCrisis/discussions",
+    newTab: true,
   },
   // {
   //   id: 4,
-  //   title: "Blog",
-  //   path: "/blogs",
+  //   title: "Contact",
+  //   path: "/contact",
   //   newTab: false,
   // },
+  {
+    id: 4,
+    title: "Resources",
+    path: "/resources",
+    newTab: false,
+  },
 ];
 export default menuData;
