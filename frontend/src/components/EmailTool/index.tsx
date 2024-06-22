@@ -182,7 +182,7 @@ const PublicEmailTool: React.FC = () => {
       category: "Email",
       label: "Streaming",
     });
-    let allSources = "</br>All Sources: </br>"; // Initialize a variable to store all sources
+    let allSources = "<br><br><br>All Sources: <br>"; // Initialize a variable to store all sources
     const uniqueSources = new Set();
     await fetchEventSource(url, {
       headers: {
@@ -206,7 +206,7 @@ const PublicEmailTool: React.FC = () => {
         const formattedSource = eventData.source;
         if (formattedSource && !uniqueSources.has(formattedSource)) {
           uniqueSources.add(formattedSource);
-          allSources += formattedSource + "<br>";
+          allSources += eventData.title + "|" + formattedSource + "<br>";
         }
       },
       onclose() {
