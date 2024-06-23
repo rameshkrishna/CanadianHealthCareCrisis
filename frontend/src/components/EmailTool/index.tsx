@@ -208,6 +208,7 @@ const PublicEmailTool: React.FC = () => {
             (prevData: string) =>
               prevData + eventData.response.replaceAll("\n", "<br>"),
           );
+          vibrate([100, 50, 100]);
         }
         const formattedSource = eventData.source;
         if (formattedSource && !uniqueSources.has(formattedSource)) {
