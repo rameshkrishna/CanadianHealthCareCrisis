@@ -183,7 +183,7 @@ const PublicEmailTool: React.FC = () => {
         ? `https://api.canadianhealthcarecrisis.com/LangChainGooglePrompt?${queryParams}`
         : `https://api.canadianhealthcarecrisis.com/langChainPrompt?${queryParams}`;
     setIsStreaming(true);
-
+    vibrate([100, 50, 100]); // Vibrate pattern to indicate streaming start
     event("streaming_start", {
       category: "Email",
       label: "Streaming",
