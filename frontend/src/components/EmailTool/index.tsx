@@ -160,6 +160,11 @@ const PublicEmailTool: React.FC = () => {
     if (!result.success) {
       setErrors(result.error.flatten().fieldErrors);
       vibrate([200, 100, 200]); // Vibrate pattern: 200ms on, 100ms off, 200ms on
+      // Scroll to the form errors
+      const DemandActionNow = document.getElementById("DemandActionNow");
+      if (DemandActionNow) {
+        DemandActionNow.scrollIntoView({ behavior: "smooth" });
+      }
       return;
     }
 
@@ -184,7 +189,10 @@ const PublicEmailTool: React.FC = () => {
         : `https://api.canadianhealthcarecrisis.com/langChainPrompt?${queryParams}`;
     setIsStreaming(true);
     // Scroll the content into view
-
+    const StreamingContent = document.getElementById("StreamingContent");
+    if (StreamingContent) {
+      StreamingContent.scrollIntoView({ behavior: "smooth" });
+    }
     event("streaming_start", {
       category: "Email",
       label: "Streaming",
@@ -551,44 +559,42 @@ const PublicEmailTool: React.FC = () => {
       )}
 
       <div className="mt-6 flex flex-col gap-4 md:flex-row">
-        <a href="#streamingContent" className="flex-1">
-          <button
-            onClick={handleButtonClick}
-            disabled={isStreaming || !cookiesEnabled}
-            className={`inline-flex flex-1 items-center justify-center rounded-md px-6 py-3 text-lg font-semibold transition duration-300 ${
-              isStreaming || !cookiesEnabled
-                ? "cursor-not-allowed bg-gradient-to-r from-gray-400 to-gray-500 text-white" // Change color during streaming
-                : "transform bg-gradient-to-r from-gray-700 to-gray-800 text-white"
-            }`}
-          >
-            {isStreaming ? (
-              <>
-                <svg
-                  className="mr-2 h-7 w-7 animate-spin"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    strokeWidth="4"
-                    className="opacity-45"
-                  />
-                  <path
-                    fill="#ffffff"
-                    d="M14.31 8l-4 4a1.999 1.999 0 0 0 0 2.83l4 4M9.69 16l4-4a1.999 1.999 0 0 0 0-2.83l-4-4"
-                  />
-                </svg>
-                <span className="animate-pulse">Composing...</span>
-              </>
-            ) : (
-              "Compose Email With AI"
-            )}
-          </button>
-        </a>
+        <button
+          onClick={handleButtonClick}
+          disabled={isStreaming || !cookiesEnabled}
+          className={`inline-flex flex-1 items-center justify-center rounded-md px-6 py-3 text-lg font-semibold transition duration-300 ${
+            isStreaming || !cookiesEnabled
+              ? "cursor-not-allowed bg-gradient-to-r from-gray-400 to-gray-500 text-white" // Change color during streaming
+              : "transform bg-gradient-to-r from-gray-700 to-gray-800 text-white"
+          }`}
+        >
+          {isStreaming ? (
+            <>
+              <svg
+                className="mr-2 h-7 w-7 animate-spin"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  strokeWidth="4"
+                  className="opacity-45"
+                />
+                <path
+                  fill="#ffffff"
+                  d="M14.31 8l-4 4a1.999 1.999 0 0 0 0 2.83l4 4M9.69 16l4-4a1.999 1.999 0 0 0 0-2.83l-4-4"
+                />
+              </svg>
+              <span className="animate-pulse">Composing...</span>
+            </>
+          ) : (
+            "Compose Email With AI"
+          )}
+        </button>
 
         <button
           onClick={() => setData("")}
@@ -619,7 +625,7 @@ const PublicEmailTool: React.FC = () => {
       )}
       <div
         className="break-word mt-6 max-w-full overflow-auto"
-        id="streamingContent"
+        id="StreamingContent"
         ref={dataRef}
         // style={{ overflow: "hidden" }}
         dangerouslySetInnerHTML={{ __html: data }}
