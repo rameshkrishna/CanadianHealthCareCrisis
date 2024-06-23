@@ -129,6 +129,11 @@ const PublicEmailTool: React.FC = () => {
       });
     }
   };
+  const vibrate = (pattern: Iterable<number>) => {
+    if (navigator.vibrate) {
+      navigator.vibrate(pattern);
+    }
+  };
 
   const handleButtonClick = async () => {
     if (isStreaming || !csrfToken) {
@@ -154,6 +159,7 @@ const PublicEmailTool: React.FC = () => {
 
     if (!result.success) {
       setErrors(result.error.flatten().fieldErrors);
+      vibrate([200, 100, 200]); // Vibrate pattern: 200ms on, 100ms off, 200ms on
       return;
     }
 
@@ -182,7 +188,7 @@ const PublicEmailTool: React.FC = () => {
       category: "Email",
       label: "Streaming",
     });
-    let allSources = "<br><br><br>All Sources: <br>"; // Initialize a variable to store all sources
+    let allSources = "<br><br><br>Sources: <br>"; // Initialize a variable to store all sources
     const uniqueSources = new Set();
     await fetchEventSource(url, {
       headers: {
@@ -279,7 +285,7 @@ const PublicEmailTool: React.FC = () => {
         htmlFor="endpoint"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
       >
-        Select Endpoint:
+        Select Email Composition Tool:
       </label>
       <select
         id="endpoint"
@@ -288,10 +294,9 @@ const PublicEmailTool: React.FC = () => {
         className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
       >
-        <option value="Google">Google Endpoint</option>
-        <option value="OpenAI">OpenAI Endpoint</option>
+        <option value="Google">Google Tool</option>
+        <option value="OpenAI">OpenAI Tool</option>
       </select>
-
       {errors.endpoint && (
         <p className="text-sm text-red-600">{errors.endpoint}</p>
       )}
@@ -300,7 +305,7 @@ const PublicEmailTool: React.FC = () => {
         htmlFor="issues"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
       >
-        Enter your Key Issues With Canadian Health Care System:
+        Key Issues With Canadian Health Care System:
       </label>
       <div className="flex flex-wrap gap-2">
         {issues.split(",").map((issue, index) => (
@@ -315,7 +320,7 @@ const PublicEmailTool: React.FC = () => {
       <input
         type="text"
         id="issues"
-        placeholder="Example: Waiting Times, Shortage of Family Doctors, No MRI Machines"
+        placeholder="E.g., Waiting Times, Shortage of Family Doctors, No MRI Machines"
         value={issues}
         onChange={(e) => setIssues(e.target.value)}
         className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -329,7 +334,7 @@ const PublicEmailTool: React.FC = () => {
             htmlFor="language"
             className="mb-2 block text-balance text-lg font-semibold"
           >
-            Language:
+            Preferred Language:
           </label>
           <select
             id="language"
@@ -350,7 +355,7 @@ const PublicEmailTool: React.FC = () => {
             htmlFor="tone"
             className="mb-2 block text-balance text-lg font-semibold"
           >
-            Tone:
+            Tone of the Email:
           </label>
           <select
             id="tone"
@@ -410,7 +415,7 @@ const PublicEmailTool: React.FC = () => {
         htmlFor="isDoctor"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
       >
-        Do you work in Health Sector?
+        Do you work in the Health Sector?
       </label>
       <select
         id="isDoctor"
@@ -549,7 +554,7 @@ const PublicEmailTool: React.FC = () => {
           className={`inline-flex flex-1 items-center justify-center rounded-md px-6 py-3 text-lg font-semibold transition duration-300 ${
             isStreaming || !cookiesEnabled
               ? "cursor-not-allowed bg-gradient-to-r from-gray-400 to-gray-500 text-white" // Change color during streaming
-              : "transform bg-gradient-to-r from-gray-700 to-gray-800 text-white shadow-md ease-in-out hover:scale-105 hover:from-gray-600 hover:to-gray-700 hover:shadow-lg"
+              : "transform bg-gradient-to-r from-gray-700 to-gray-800 text-white"
           }`}
         >
           {isStreaming ? (
