@@ -183,7 +183,10 @@ const PublicEmailTool: React.FC = () => {
         ? `https://api.canadianhealthcarecrisis.com/LangChainGooglePrompt?${queryParams}`
         : `https://api.canadianhealthcarecrisis.com/langChainPrompt?${queryParams}`;
     setIsStreaming(true);
-    vibrate([100, 50, 100]); // Vibrate pattern to indicate streaming start
+    // Scroll the content into view
+    if (dataRef.current) {
+      dataRef.current.scrollIntoView({ behavior: "smooth" });
+    }
     event("streaming_start", {
       category: "Email",
       label: "Streaming",
@@ -208,7 +211,7 @@ const PublicEmailTool: React.FC = () => {
             (prevData: string) =>
               prevData + eventData.response.replaceAll("\n", "<br>"),
           );
-          vibrate([100, 50, 100]);
+          vibrate([50, 75, 50]); // Vibrate pattern to indicate streaming start
         }
         const formattedSource = eventData.source;
         if (formattedSource && !uniqueSources.has(formattedSource)) {
