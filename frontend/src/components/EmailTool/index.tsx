@@ -10,14 +10,14 @@ const formSchema = z.object({
   issues: z.string().nonempty("Issues are required"),
   tone: z.enum(["formal", "friendly", "neutral"]),
   followup: z.enum(["Yes", "No"]),
-  province: z.string().nonempty("Province is required"),
-  city: z.string().nonempty("City is required"),
+  province: z.string().min(1, "Province is required"),
+  city: z.string().min(1, "City is required"),
   isDoctor: z.boolean(),
   profession: z.string().optional(),
   experience: z.string().optional(),
   language: z.enum(["en", "fr"]),
   endpoint: z.enum(["Google", "OpenAI"]),
-  fromName: z.string().optional(),
+  fromName: z.string().min(3, "Name must be at least 3 characters"),
 });
 
 interface Contact {
