@@ -17,6 +17,7 @@ const formSchema = z.object({
   experience: z.string().optional(),
   language: z.enum(["en", "fr"]),
   endpoint: z.enum(["Google", "OpenAI"]),
+  fromName: z.string().optional(),
 });
 
 interface Contact {
@@ -47,6 +48,7 @@ const PublicEmailTool: React.FC = () => {
   const [endpoint, setEndpoint] = useState<string>("Google"); // Default endpoint is Google
   const [emailSubject, setEmailSubject] = useState<string>("");
   const [toEmail, setToEmail] = useState<string>("");
+  const [fromName, setFromName] = useState<string>("");
   const [mpName, setMPName] = useState<string>("");
   const [errors, setErrors] = useState<any>({});
   const [showSuccessAlert, setShowSuccessAlert] = useState<boolean>(false);
@@ -135,7 +137,7 @@ const PublicEmailTool: React.FC = () => {
     }
   };
 
-  const handleButtonClick = async () => {
+  const handleStreaming = async () => {
     if (isStreaming || !csrfToken) {
       return; // Don't allow starting multiple streams simultaneously or without CSRF token
     }
@@ -148,6 +150,7 @@ const PublicEmailTool: React.FC = () => {
       issues,
       tone,
       followup,
+      fromName,
       province,
       city,
       isDoctor,
@@ -174,6 +177,7 @@ const PublicEmailTool: React.FC = () => {
       issues,
       tone,
       followup,
+      fromName,
       province,
       city,
       language,
@@ -188,11 +192,7 @@ const PublicEmailTool: React.FC = () => {
         ? `https://api.canadianhealthcarecrisis.com/LangChainGooglePrompt?${queryParams}`
         : `https://api.canadianhealthcarecrisis.com/langChainPrompt?${queryParams}`;
     setIsStreaming(true);
-    // Scroll the content into view
-    const StreamingContent = document.getElementById("StreamingContent");
-    if (StreamingContent) {
-      StreamingContent.scrollIntoView({ behavior: "smooth" });
-    }
+
     event("streaming_start", {
       category: "Email",
       label: "Streaming",
@@ -217,13 +217,18 @@ const PublicEmailTool: React.FC = () => {
             (prevData: string) =>
               prevData + eventData.response.replaceAll("\n", "<br>"),
           );
-          vibrate([50, 75, 50]); // Vibrate pattern to indicate streaming start
+          vibrate([50]); // Vibrate pattern to indicate streaming start
+          // Scroll the content into view
+          const StreamingContent = document.getElementById("StreamingContent");
+          if (StreamingContent) {
+            StreamingContent.scrollIntoView({ behavior: "smooth" });
+          }
         }
         const formattedSource = eventData.source;
         if (formattedSource && !uniqueSources.has(formattedSource)) {
           uniqueSources.add(formattedSource);
           allSources +=
-            "<li>" + eventData.title + "|" + formattedSource + "</li><br>";
+            "<li>" + eventData.title + " | " + formattedSource + "</li><br>";
         }
       },
       onclose() {
@@ -382,7 +387,23 @@ const PublicEmailTool: React.FC = () => {
           {errors.tone && <p className="text-sm text-red-600">{errors.tone}</p>}
         </div>
       </div>
-
+      <label
+        htmlFor="fromName"
+        className="mb-2 mt-4 block text-balance text-lg font-semibold"
+      >
+        Your Name:
+      </label>
+      <input
+        type="text"
+        id="fromName"
+        value={fromName}
+        onChange={(e) => setFromName(e.target.value)}
+        className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        disabled={!cookiesEnabled}
+      />
+      {errors.fromName && (
+        <p className="text-sm text-red-600">{errors.fromName}</p>
+      )}
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
           <label
@@ -391,14 +412,28 @@ const PublicEmailTool: React.FC = () => {
           >
             Province:
           </label>
-          <input
-            type="text"
+          <select
             id="province"
             value={province}
             onChange={(e) => setProvince(e.target.value)}
             className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
             disabled={!cookiesEnabled}
-          />
+          >
+            <option value="">Select a province</option>
+            <option value="AB">Alberta</option>
+            <option value="BC">British Columbia</option>
+            <option value="MB">Manitoba</option>
+            <option value="NB">New Brunswick</option>
+            <option value="NL">Newfoundland and Labrador</option>
+            <option value="NS">Nova Scotia</option>
+            <option value="ON">Ontario</option>
+            <option value="PE">Prince Edward Island</option>
+            <option value="QC">Quebec</option>
+            <option value="SK">Saskatchewan</option>
+            <option value="NT">Northwest Territories</option>
+            <option value="NU">Nunavut</option>
+            <option value="YT">Yukon</option>
+          </select>
           {errors.province && (
             <p className="text-sm text-red-600">{errors.province}</p>
           )}
@@ -560,7 +595,7 @@ const PublicEmailTool: React.FC = () => {
 
       <div className="mt-6 flex flex-col gap-4 md:flex-row">
         <button
-          onClick={handleButtonClick}
+          onClick={handleStreaming}
           disabled={isStreaming || !cookiesEnabled}
           className={`inline-flex flex-1 items-center justify-center rounded-md px-6 py-3 text-lg font-semibold transition duration-300 ${
             isStreaming || !cookiesEnabled
