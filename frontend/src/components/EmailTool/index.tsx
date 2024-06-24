@@ -4,10 +4,13 @@ import { z } from "zod";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { event } from "nextjs-google-analytics";
 import Papa from "papaparse";
-
+import { vibrate } from "@/utils/vibrate";
+import type { Contact } from "@/types/contact";
+import { fetchContacts } from "@/utils/mpContacts";
+import { fetchCsrfToken } from "@/utils/CsrfToken";
 // Define the validation schema
 const formSchema = z.object({
-  issues: z.string().nonempty("Issues are required"),
+  issues: z.string().min(1, "Issues are required"),
   tone: z.enum(["formal", "friendly", "neutral"]),
   followup: z.enum(["Yes", "No"]),
   province: z.string().min(1, "Province is required"),
@@ -19,18 +22,6 @@ const formSchema = z.object({
   endpoint: z.enum(["Google", "OpenAI"]),
   fromName: z.string().min(3, "Name must be at least 3 characters"),
 });
-
-interface Contact {
-  Name: string;
-  Govt: string;
-  PoliticalAffiliation: string;
-  Constituency: string;
-  ProvinceTerritory: string;
-  PreferredLanguage: string;
-  Contact: string;
-  Telephone: string;
-  Url: string;
-}
 
 const PublicEmailTool: React.FC = () => {
   const [csrfToken, setCsrfToken] = useState<string | null>(null);
@@ -68,53 +59,16 @@ const PublicEmailTool: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch CSRF token on component mount
-    const fetchCsrfToken = async () => {
-      if (cookiesEnabled && !csrfToken) {
-        const response = await fetch(
-          "https://api.canadianhealthcarecrisis.com/generate-token",
-          {
-            credentials: "include",
-          },
-        );
-        const data = await response.json();
-        setCsrfToken(data.csrfToken);
-      }
-    };
-
-    fetchCsrfToken();
+    if (cookiesEnabled && !csrfToken) {
+      fetchCsrfToken(setCsrfToken);
+    }
   }, [cookiesEnabled, csrfToken]);
 
   useEffect(() => {
-    const fetchContacts = async () => {
-      try {
-        const response = await fetch(
-          "https://api.canadianhealthcarecrisis.com/contacts",
-          {
-            method: "GET",
-            headers: {
-              "X-CSRF-Token": csrfToken || "", // Ensure the token is a string
-            },
-            credentials: "include",
-          },
-        );
-
-        const csvText = await response.text();
-        const parsedData = Papa.parse<Contact>(csvText, {
-          header: true,
-          skipEmptyLines: true,
-        });
-        setContacts(parsedData.data);
-      } catch (error) {
-        console.error("Error fetching contacts:", error);
-      }
-    };
-
     if (csrfToken) {
-      fetchContacts();
+      fetchContacts(csrfToken, setContacts);
     }
   }, [csrfToken]);
-
   const handleCopyToClipboard = () => {
     if (dataRef.current) {
       const range = document.createRange();
@@ -131,12 +85,6 @@ const PublicEmailTool: React.FC = () => {
       });
     }
   };
-  const vibrate = (pattern: Iterable<number>) => {
-    if (navigator.vibrate) {
-      navigator.vibrate(pattern);
-    }
-  };
-
   const handleStreaming = async () => {
     if (isStreaming || !csrfToken) {
       return; // Don't allow starting multiple streams simultaneously or without CSRF token
@@ -215,11 +163,15 @@ const PublicEmailTool: React.FC = () => {
         if (eventData.response) {
           setData(
             (prevData: string) =>
-              prevData + eventData.response.replaceAll("\n", "<br>"),
+              prevData +
+              eventData.response
+                .replaceAll("\n", "<br>")
+                .replaceAll("\n", "<li>")
+                .replaceAll("\n", "</li>"),
           );
           vibrate([50]); // Vibrate pattern to indicate streaming start
           // Scroll the content into view
-          const StreamingContent = document.getElementById("StreamingContent");
+          const StreamingContent = document.getElementById("streaming-end");
           if (StreamingContent) {
             StreamingContent.scrollIntoView({ behavior: "smooth" });
           }
@@ -665,6 +617,7 @@ const PublicEmailTool: React.FC = () => {
         // style={{ overflow: "hidden" }}
         dangerouslySetInnerHTML={{ __html: data }}
       ></div>
+      <div id="streaming-end"></div>
     </div>
   );
 };
