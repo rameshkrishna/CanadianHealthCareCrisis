@@ -163,11 +163,7 @@ const PublicEmailTool: React.FC = () => {
         if (eventData.response) {
           setData(
             (prevData: string) =>
-              prevData +
-              eventData.response
-                .replaceAll("\n", "<br>")
-                .replaceAll("\n", "<li>")
-                .replaceAll("\n", "</li>"),
+              prevData + eventData.response.replaceAll("\n", "<br>"),
           );
           vibrate([50]); // Vibrate pattern to indicate streaming start
           // Scroll the content into view
@@ -205,7 +201,9 @@ const PublicEmailTool: React.FC = () => {
     if (isStreaming || !csrfToken) {
       return; // Wait until streaming is done | reject
     }
-    let body = data.replace(/<br\s*\/?>/gi, "\n");
+    let body = data
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<\/?li\s*\/?>/gi, "\n");
     const regex = /Subject:\s*(.*)/;
     const match = body.match(regex);
     let subject = "";
@@ -585,14 +583,14 @@ const PublicEmailTool: React.FC = () => {
 
         <button
           onClick={() => setData("")}
-          className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:scale-105 hover:from-gray-600 hover:to-gray-700"
+          className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
           disabled={isStreaming || !cookiesEnabled}
         >
           Clear Data
         </button>
         <button
           onClick={handleCopyToClipboard}
-          className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
+          className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
           disabled={isStreaming || !cookiesEnabled}
         >
           Copy AI Email to Clipboard
