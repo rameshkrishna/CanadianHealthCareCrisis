@@ -1,5 +1,6 @@
 import Image from "next/image";
-interface SectionProps {
+import { YouTubeEmbed } from "@next/third-parties/google";
+export interface SectionProps {
   title: string;
   links: { url: string; text: string }[];
 }
@@ -8,7 +9,7 @@ const Section = ({ title, links }: SectionProps) => (
   <div className="mb-8">
     <h2 className="mb-4 text-2xl font-semibold">{title}</h2>
     <ul className="space-y-2">
-      {links.map((link, index) => (
+      {links.map((link: { url: string; text: string }, index: number) => (
         <li key={index}>
           <a
             href={link.url}
@@ -37,7 +38,12 @@ const Resources = () => {
               <h1 className="mb-6 text-3xl font-bold">
                 Canadian Health Care Resources
               </h1>
-
+              {/* <YouTubeEmbed
+                // width={650}
+                // height={650}
+                // style="border: 1px solid #333; margin: 0 auto; display: block;"
+                videoid="LM2_7KmTs7U"
+              /> */}
               <Section
                 title="Capital Gains Tax"
                 links={[
@@ -55,7 +61,6 @@ const Resources = () => {
                   },
                 ]}
               />
-
               <Section
                 title="Hospital and ER Wait Times"
                 links={[
@@ -89,7 +94,6 @@ const Resources = () => {
                   },
                 ]}
               />
-
               <Section
                 title="Health Care System Challenges"
                 links={[
@@ -135,7 +139,6 @@ const Resources = () => {
                   },
                 ]}
               />
-
               <Section
                 title="Health Care Access and Inequality"
                 links={[
@@ -177,7 +180,6 @@ const Resources = () => {
                   },
                 ]}
               />
-
               <Section
                 title="Health Policy and Planning"
                 links={[
@@ -231,7 +233,6 @@ const Resources = () => {
                   },
                 ]}
               />
-
               <Section
                 title="Mental Health"
                 links={[
@@ -241,7 +242,6 @@ const Resources = () => {
                   },
                 ]}
               />
-
               <Section
                 title="Staffing and Labor Issues"
                 links={[
@@ -279,7 +279,6 @@ const Resources = () => {
                   },
                 ]}
               />
-
               <Section
                 title="Wait Time Reports and Statistics"
                 links={[
@@ -313,7 +312,6 @@ const Resources = () => {
                   },
                 ]}
               />
-
               <Section
                 title="Opinions and Commentaries"
                 links={[
@@ -347,7 +345,6 @@ const Resources = () => {
                   },
                 ]}
               />
-
               <Section
                 title="Other Resources"
                 links={[
@@ -378,6 +375,10 @@ const Resources = () => {
                   {
                     text: "Monthly Wait Time Reporting | Winnipeg Regional Health Authority",
                     url: "https://wrha.mb.ca/wait-times/reports/",
+                  },
+                  {
+                    text: "Fraser Institute (Video):The costs of waiting for health care in Canada ",
+                    url: "https://www.youtube.com/watch?v=O0CnL1rh9Vk",
                   },
                 ]}
               />
