@@ -6,7 +6,6 @@ import DynamicHealthCareMessage from "@/components/DynamicHealthCareMessage";
 import { FaBolt } from "react-icons/fa";
 import { MdOutlineMarkUnreadChatAlt } from "react-icons/md";
 import { YouTubeEmbed } from "@next/third-parties/google";
-import FraserVideo from "../Videos";
 const Hero = () => {
   return (
     <>
@@ -56,7 +55,6 @@ const Hero = () => {
               <div className="mx-auto">
                 <WaitTimes />
               </div>
-              <FraserVideo />
             </div>
           </div>
         </div>

@@ -1,9 +1,5 @@
 import Image from "next/image";
 import { YouTubeEmbed } from "@next/third-parties/google";
-<<<<<<< HEAD
-=======
-import FraserVideo from "@/components/Videos";
->>>>>>> 4f47a8906ad6b2f40adcfae88b8f7e587ec9cbce
 export interface SectionProps {
   title: string;
   links: { url: string; text: string }[];
@@ -48,10 +44,6 @@ const Resources = () => {
                 // style="border: 1px solid #333; margin: 0 auto; display: block;"
                 videoid="LM2_7KmTs7U"
               /> */}
-<<<<<<< HEAD
-=======
-              <FraserVideo />
->>>>>>> 4f47a8906ad6b2f40adcfae88b8f7e587ec9cbce
               <Section
                 title="Capital Gains Tax"
                 links={[
