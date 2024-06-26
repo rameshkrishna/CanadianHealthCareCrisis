@@ -8,14 +8,14 @@ export const metadata: Metadata = {
   description: "Resources to Learn More about Canadian Health Care Crisis",
 };
 
-const ResourcesPage = () => {
+const PathwaysPage = () => {
   return (
     <main>
       <ScrollUp />
       <Breadcrumb pageName="Healthcare Crisis Watch" />
-      <Resources />
+      <h2>TBD</h2>
     </main>
   );
 };
 
-export default ResourcesPage;
+export default PathwaysPage;
