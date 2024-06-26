@@ -31,5 +31,11 @@ const menuData: Menu[] = [
     path: "/resources",
     newTab: false,
   },
+  // {
+  //   id: 4,
+  //   title: "Pathways To Emigrate",
+  //   path: "/pathways-to-emigrate",
+  //   newTab: false,
+  // },
 ];
 export default menuData;
