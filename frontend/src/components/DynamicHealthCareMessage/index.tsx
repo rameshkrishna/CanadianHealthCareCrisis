@@ -49,13 +49,7 @@ const issues = [
 const DynamicHealthCareMessage = () => {
   return (
     <>
-      {/* <div className="bg-purple-600 inline-block rounded-full px-4 py-1 text-sm font-semibold mb-4">
-          New
-          <span className="ml-2 text-gray-300">
-              Want to contribute? You can do that <a href="#" className="text-purple-300 underline">here</a>
-          </span>
-      </div> */}
-      <h1 className="mb-6 text-3xl leading-snug text-white sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]">
+      <h1 className="text-foreground mb-6 text-3xl leading-snug sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]">
         Canadian Health Care System
         <br />
         <span className="bg-gradient-to-r from-fuchsia-600 via-violet-600 to-pink-600 bg-clip-text uppercase text-transparent">
