@@ -176,7 +176,7 @@ const PublicEmailTool: React.FC = () => {
         if (formattedSource && !uniqueSources.has(formattedSource)) {
           uniqueSources.add(formattedSource);
           allSources +=
-            "<li className='text-xs leading-tight py-1 px-2 border border-gray-300 rounded'>" +
+            "<li className='text-xs leading-tight py-1 px-2 rounded'>" +
             eventData.title +
             " | " +
             formattedSource +
@@ -261,7 +261,7 @@ const PublicEmailTool: React.FC = () => {
         id="endpoint"
         value={endpoint}
         onChange={(e) => setEndpoint(e.target.value)}
-        className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
       >
         <option value="Google">Google Tool</option>
@@ -293,7 +293,7 @@ const PublicEmailTool: React.FC = () => {
         placeholder="E.g., Waiting Times, Shortage of Family Doctors, No MRI Machines"
         value={issues}
         onChange={(e) => setIssues(e.target.value)}
-        className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
       />
       {errors.issues && <p className="text-sm text-red-600">{errors.issues}</p>}
@@ -310,7 +310,7 @@ const PublicEmailTool: React.FC = () => {
             id="language"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
-            className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+            className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
             disabled={!cookiesEnabled}
           >
             <option value="en">English</option>
@@ -331,7 +331,7 @@ const PublicEmailTool: React.FC = () => {
             id="tone"
             value={tone}
             onChange={(e) => setTone(e.target.value)}
-            className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+            className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
             disabled={!cookiesEnabled}
           >
             <option value="formal">Formal</option>
@@ -352,7 +352,7 @@ const PublicEmailTool: React.FC = () => {
         id="fromName"
         value={fromName}
         onChange={(e) => setFromName(e.target.value)}
-        className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
       />
       {errors.fromName && (
@@ -370,7 +370,7 @@ const PublicEmailTool: React.FC = () => {
             id="province"
             value={province}
             onChange={(e) => setProvince(e.target.value)}
-            className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+            className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
             disabled={!cookiesEnabled}
           >
             <option value="">Select a province</option>
@@ -404,7 +404,7 @@ const PublicEmailTool: React.FC = () => {
             id="city"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+            className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
             disabled={!cookiesEnabled}
           />
           {errors.city && <p className="text-sm text-red-600">{errors.city}</p>}
@@ -421,7 +421,7 @@ const PublicEmailTool: React.FC = () => {
         id="isDoctor"
         value={isDoctor.toString()}
         onChange={(e) => setIsDoctor(e.target.value === "true")}
-        className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
       >
         <option value="false">No</option>
@@ -442,7 +442,7 @@ const PublicEmailTool: React.FC = () => {
                 id="profession"
                 value={profession}
                 onChange={(e) => setProfession(e.target.value)}
-                className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+                className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
                 disabled={!cookiesEnabled}
               />
               {errors.profession && (
@@ -461,7 +461,7 @@ const PublicEmailTool: React.FC = () => {
                 id="experience"
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
-                className="mt-4 w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+                className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
                 disabled={!cookiesEnabled}
               />
               {errors.experience && (
@@ -482,7 +482,7 @@ const PublicEmailTool: React.FC = () => {
         id="followup"
         value={followup}
         onChange={(e) => setFollowup(e.target.value)}
-        className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
       >
         <option value="Yes">Yes</option>
@@ -503,13 +503,13 @@ const PublicEmailTool: React.FC = () => {
         id="searchQuery"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         placeholder="Type MP's name or province/territory"
         disabled={!cookiesEnabled}
         autoComplete="off"
       />
       {searchQuery && filteredContacts.length > 0 && (
-        <ul className="mt-4 max-h-60 overflow-y-auto rounded-md border border-gray-300 bg-gray-50 p-2 text-xs shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:max-h-40 sm:text-sm">
+        <ul className="mt-4 max-h-60 overflow-y-auto rounded-md bg-gray-50 p-2 text-xs shadow-sm dark:bg-gray-800 sm:max-h-40 sm:text-sm">
           {filteredContacts.map((contact, index) => (
             <li
               key={index}
@@ -541,7 +541,7 @@ const PublicEmailTool: React.FC = () => {
         value={toEmail}
         readOnly
         autoComplete="off"
-        className="mt-4 w-full cursor-not-allowed rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
+        className="mt-4 w-full cursor-not-allowed rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         placeholder="MP/MPP/MLA's Email will appear here"
       />
       {errors.toEmail && (
