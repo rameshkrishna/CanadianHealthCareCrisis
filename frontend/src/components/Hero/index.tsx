@@ -6,12 +6,13 @@ import DynamicHealthCareMessage from "@/components/DynamicHealthCareMessage";
 import { FaBolt } from "react-icons/fa";
 import { MdOutlineMarkUnreadChatAlt } from "react-icons/md";
 import { YouTubeEmbed } from "@next/third-parties/google";
+
 const Hero = () => {
   return (
     <>
       <section
         id="home"
-        className="relative overflow-hidden bg-dark pt-[120px] md:pt-[130px] lg:pt-[160px]"
+        className="bg-background relative overflow-hidden pt-[120px] md:pt-[130px] lg:pt-[160px]"
       >
         <div className="container">
           <div className="-mx-4 flex flex-wrap items-center">
@@ -22,9 +23,9 @@ const Hero = () => {
               >
                 <DynamicHealthCareMessage />
 
-                <p className="mx-auto mb-9 max-w-[600px] text-base font-medium text-white sm:text-lg sm:leading-[1.44]">
+                <p className="text-foreground mx-auto mb-9 max-w-[600px] text-base font-medium sm:text-lg sm:leading-[1.44]">
                   We've compiled the stats from trusted sources to show you how
-                  broken Our Canadian healthcare system really is.
+                  broken Our Canadian Healthcare System really is.
                 </p>
                 <ul className="mb-10 flex flex-wrap items-center justify-center gap-5">
                   <li>
@@ -32,7 +33,7 @@ const Hero = () => {
                       href="https://github.com/rameshkrishna/CanadianHealthCareCrisis/discussions"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark"
+                      className="text-secondary-foreground hover:text-primary-foreground flex items-center gap-4 rounded-md bg-secondary px-6 py-[14px] text-base font-medium transition duration-300 ease-in-out hover:bg-primary"
                     >
                       <MdOutlineMarkUnreadChatAlt
                         size={24}
@@ -44,7 +45,7 @@ const Hero = () => {
                   <li>
                     <a
                       href="#DemandActionNow"
-                      className="flex items-center gap-4 rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark"
+                      className="text-secondary-foreground hover:text-primary-foreground flex items-center gap-4 rounded-md bg-secondary px-6 py-[14px] text-base font-medium transition duration-300 ease-in-out hover:bg-primary"
                     >
                       <FaBolt size={24} color="currentColor" />
                       Demand Action Now

@@ -46,7 +46,7 @@ const Header = () => {
       <header
         className={`ud-header left-0 top-0 z-40 flex w-full items-center ${
           sticky
-            ? "shadow-nav fixed z-[999] border-b border-stroke bg-white/80 backdrop-blur-[5px] dark:border-dark-3/20 dark:bg-dark/10"
+            ? "shadow-nav border-border dark:bg-background/10 fixed z-[999] border-b backdrop-blur-[5px] dark:border-dark-3/20"
             : "absolute bg-transparent"
         }`}
       >
@@ -60,8 +60,8 @@ const Header = () => {
                 <span
                   className={`text-lg font-bold transition-colors duration-300 ${
                     sticky
-                      ? "text-dark hover:text-primary dark:text-white dark:hover:text-primary"
-                      : "text-white hover:text-primary dark:text-white"
+                      ? "text-foreground hover:text-primary dark:text-white dark:hover:text-primary"
+                      : "text-foreground hover:text-primary dark:text-white"
                   }`}
                 >
                   Canadian Health Care Crisis
@@ -78,34 +78,34 @@ const Header = () => {
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${
                       navbarOpen ? " top-[7px] rotate-45" : " "
-                    } ${pathUrl !== "/" && "!bg-dark dark:!bg-white"} ${
+                    } ${pathUrl !== "/test" && "!bg-foreground dark:!bg-white"} ${
                       pathUrl === "/" && sticky
-                        ? "bg-dark dark:bg-white"
+                        ? "bg-foreground dark:bg-white"
                         : "bg-white"
                     }`}
                   />
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${
                       navbarOpen ? "opacity-0 " : " "
-                    } ${pathUrl !== "/" && "!bg-dark dark:!bg-white"} ${
+                    } ${pathUrl !== "/test" && "!bg-foreground dark:!bg-white"} ${
                       pathUrl === "/" && sticky
-                        ? "bg-dark dark:bg-white"
+                        ? "bg-foreground dark:bg-white"
                         : "bg-white"
                     }`}
                   />
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${
                       navbarOpen ? " top-[-8px] -rotate-45" : " "
-                    } ${pathUrl !== "/" && "!bg-dark dark:!bg-white"} ${
+                    } ${pathUrl !== "/test" && "!bg-foreground dark:!bg-white"} ${
                       pathUrl === "/" && sticky
-                        ? "bg-dark dark:bg-white"
+                        ? "bg-foreground dark:bg-white"
                         : "bg-white"
                     }`}
                   />
                 </button>
                 <nav
                   id="navbarCollapse"
-                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white px-6 py-4 duration-300 dark:border-body-color/20 dark:bg-dark-2 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 lg:dark:bg-transparent ${
+                  className={`navbar dark:bg-foreground-2 absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white px-6 py-4 duration-300 dark:border-body-color/20 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 lg:dark:bg-transparent ${
                     navbarOpen
                       ? "visibility top-full opacity-100"
                       : "invisible top-[120%] opacity-0"
@@ -115,12 +115,12 @@ const Header = () => {
                     {menuData.map((menuItem, index) =>
                       menuItem.path ? (
                         <li key={index} className="group relative">
-                          {pathUrl !== "/" ? (
+                          {pathUrl !== "/test" ? (
                             <Link
                               onClick={navbarToggleHandler}
                               scroll={false}
                               href={menuItem.path}
-                              className={`ud-menu-scroll flex py-2 text-base text-dark group-hover:text-primary dark:text-white dark:group-hover:text-primary lg:inline-flex lg:px-0 lg:py-6 ${
+                              className={`ud-menu-scroll text-foreground flex py-2 text-base group-hover:text-primary dark:text-white dark:group-hover:text-primary lg:inline-flex lg:px-0 lg:py-6 ${
                                 pathUrl === menuItem?.path && "text-primary"
                               }`}
                             >
@@ -132,7 +132,7 @@ const Header = () => {
                               href={menuItem.path}
                               className={`ud-menu-scroll flex py-2 text-base lg:inline-flex lg:px-0 lg:py-6 ${
                                 sticky
-                                  ? "text-dark group-hover:text-primary dark:text-white dark:group-hover:text-primary"
+                                  ? "text-foreground group-hover:text-primary dark:text-white dark:group-hover:text-primary"
                                   : "text-body-color dark:text-white lg:text-white"
                               } ${
                                 pathUrl === menuItem?.path &&
@@ -146,10 +146,10 @@ const Header = () => {
                         </li>
                       ) : (
                         <li className="submenu-item group relative" key={index}>
-                          {pathUrl !== "/" ? (
+                          {pathUrl !== "/test" ? (
                             <button
                               onClick={() => handleSubmenu(index)}
-                              className={`ud-menu-scroll flex items-center justify-between py-2 text-base text-dark group-hover:text-primary dark:text-white dark:group-hover:text-primary lg:inline-flex lg:px-0 lg:py-6`}
+                              className={`ud-menu-scroll text-foreground flex items-center justify-between py-2 text-base group-hover:text-primary dark:text-white dark:group-hover:text-primary lg:inline-flex lg:px-0 lg:py-6`}
                             >
                               {menuItem.title}
 
@@ -174,7 +174,7 @@ const Header = () => {
                               onClick={() => handleSubmenu(index)}
                               className={`ud-menu-scroll flex items-center justify-between py-2 text-base lg:inline-flex lg:px-0 lg:py-6 ${
                                 sticky
-                                  ? "text-dark group-hover:text-primary dark:text-white dark:group-hover:text-primary"
+                                  ? "text-foreground group-hover:text-primary dark:text-white dark:group-hover:text-primary"
                                   : "text-white"
                               }`}
                             >
@@ -199,7 +199,7 @@ const Header = () => {
                           )}
 
                           <div
-                            className={`submenu relative left-0 top-full w-[250px] rounded-sm bg-white p-4 transition-[top] duration-300 group-hover:opacity-100 dark:bg-dark-2 lg:invisible lg:absolute lg:top-[110%] lg:block lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
+                            className={`submenu dark:bg-foreground-2 relative left-0 top-full w-[250px] rounded-sm bg-white p-4 transition-[top] duration-300 group-hover:opacity-100 lg:invisible lg:absolute lg:top-[110%] lg:block lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
                               openIndex === index ? "!-left-[25px]" : "hidden"
                             }`}
                           >
