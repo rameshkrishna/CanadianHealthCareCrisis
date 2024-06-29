@@ -8,7 +8,10 @@ const config = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
+<<<<<<< HEAD
   prefix: "",
+=======
+>>>>>>> 2e920f2c3224059b7ad6ac53ce55df7e1de95ec3
   theme: {
     container: {
       center: true,
@@ -17,6 +20,7 @@ const config = {
         "2xl": "1400px",
       },
     },
+<<<<<<< HEAD
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -77,4 +81,9 @@ const config = {
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
 
+=======
+  },
+  plugins: [require("tailgrids/plugin")],
+};
+>>>>>>> 2e920f2c3224059b7ad6ac53ce55df7e1de95ec3
 export default config;
