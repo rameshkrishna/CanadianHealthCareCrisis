@@ -652,7 +652,17 @@ const PublicEmailTool: React.FC = () => {
         // style={{ overflow: "hidden" }}
         dangerouslySetInnerHTML={{ __html: data }}
       ></div>
-      <div id="streaming-end"></div>
+      <div id="streaming-end">
+        {/* {!isStreaming && (
+          <button
+            onClick={handleCopyToClipboard}
+            className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
+            disabled={isStreaming || !cookiesEnabled}
+          >
+            <MdOutlineContentCopy />
+          </button>
+        )} */}
+      </div>
     </div>
   );
 };
