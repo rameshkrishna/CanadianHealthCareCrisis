@@ -7,7 +7,12 @@ import Papa from "papaparse";
 import { vibrate } from "@/utils/vibrate";
 import type { Contact } from "@/types/contact";
 import { fetchContacts } from "@/utils/mpContacts";
-import { MdOutlineContentCopy, MdPersonSearch, MdEmail } from "react-icons/md";
+import {
+  MdOutlineContentCopy,
+  MdPersonSearch,
+  MdEmail,
+  MdOutlineLibraryAddCheck,
+} from "react-icons/md";
 import { fetchCsrfToken } from "@/utils/CsrfToken";
 // Define the validation schema
 const formSchema = z.object({
@@ -44,6 +49,7 @@ const PublicEmailTool: React.FC = () => {
   const [mpName, setMPName] = useState<string>("");
   const [errors, setErrors] = useState<any>({});
   const [showSuccessAlert, setShowSuccessAlert] = useState<boolean>(false);
+  const [showSuccessCopied, setSuccessShowCopied] = useState<boolean>(false);
   const [cookiesEnabled, setCookiesEnabled] = useState<boolean>(true);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -76,20 +82,32 @@ const PublicEmailTool: React.FC = () => {
       range.selectNode(dataRef.current);
       window.getSelection()?.removeAllRanges();
       window.getSelection()?.addRange(range);
-      document.execCommand("copy");
+      navigator.clipboard
+        .writeText(dataRef.current.textContent ?? "")
+        .then(() => {
+          setShowSuccessAlert(true); // Show success alert
+          setTimeout(() => setShowSuccessAlert(false), 3000); // Hide alert after 3 seconds
+          event("streaming_copy", {
+            category: "Email",
+            label: "CopyEmailContent",
+          });
+        })
+        .catch((err) => {
+          console.error("Failed to copy text: ", err);
+        });
       window.getSelection()?.removeAllRanges();
-      setShowSuccessAlert(true); // Show success alert
-      setTimeout(() => setShowSuccessAlert(false), 3000); // Hide alert after 2 seconds
-      event("streaming_copy", {
-        category: "Email",
-        label: "CopyEmail",
-      });
     }
   };
 
   const handleEmailCopyToClipboard = () => {
-    navigator.clipboard.writeText(toEmail);
-    alert("Email copied to clipboard");
+    navigator.clipboard.writeText(toEmail).then(() => {
+      setSuccessShowCopied(true); // Show success alert
+      setTimeout(() => setSuccessShowCopied(false), 3000); // Hide alert after 3 seconds
+      event("CopyEmailID", {
+        category: "Email",
+        label: "CopyEmailID",
+      });
+    });
   };
 
   const handleStreaming = async () => {
@@ -534,7 +552,7 @@ const PublicEmailTool: React.FC = () => {
         htmlFor="toEmail"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
       >
-        Your MP/MPP/MLA's Email:
+        Copy Your MP/MPP/MLA's Email:
       </label>
       <div className="relative w-full">
         <input
@@ -551,7 +569,11 @@ const PublicEmailTool: React.FC = () => {
           onClick={handleEmailCopyToClipboard}
           className="absolute right-3 top-2.5 text-gray-400 dark:text-gray-300"
         >
-          <MdOutlineContentCopy />
+          {showSuccessCopied ? (
+            <MdOutlineLibraryAddCheck />
+          ) : (
+            <MdOutlineContentCopy />
+          )}
         </button>
       </div>
       {errors.toEmail && (

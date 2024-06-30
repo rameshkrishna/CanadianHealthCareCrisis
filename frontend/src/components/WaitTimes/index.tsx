@@ -107,6 +107,13 @@ const WaitTimes = () => {
           >
             Fraser Institute
           </a>
+          |
+          <a
+            href="https://www.ourcommons.ca/en"
+            className="mx-2 text-blue-300 hover:text-blue-500"
+          >
+            OurCommons
+          </a>
         </p>
       </div>
     </>
