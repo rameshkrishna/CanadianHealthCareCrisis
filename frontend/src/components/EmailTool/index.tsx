@@ -14,6 +14,7 @@ import {
   MdOutlineLibraryAddCheck,
 } from "react-icons/md";
 import { fetchCsrfToken } from "@/utils/CsrfToken";
+
 // Define the validation schema
 const formSchema = z.object({
   issues: z.string().min(1, "Issues are required"),
@@ -76,6 +77,7 @@ const PublicEmailTool: React.FC = () => {
       fetchContacts(csrfToken, setContacts);
     }
   }, [csrfToken]);
+
   const handleCopyToClipboard = () => {
     if (dataRef.current) {
       const range = document.createRange();
@@ -264,6 +266,14 @@ const PublicEmailTool: React.FC = () => {
     );
   });
 
+  const handleKeyDown = (event: React.KeyboardEvent, contact: Contact) => {
+    if (event.key === "Enter" || event.key === " ") {
+      setSearchQuery(contact.Name + " (" + contact.ProvinceTerritory + ")");
+      setToEmail(contact.Contact);
+      setMPName(contact.Name);
+    }
+  };
+
   return (
     <div
       id="DemandActionNow"
@@ -290,6 +300,7 @@ const PublicEmailTool: React.FC = () => {
       </label>
       <select
         id="endpoint"
+        aria-label="Select Email Composition Tool"
         value={endpoint}
         onChange={(e) => setEndpoint(e.target.value)}
         className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -307,11 +318,12 @@ const PublicEmailTool: React.FC = () => {
       >
         Key Issues With Canadian Health Care System:
       </label>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2" role="list">
         {issues.split(",").map((issue, index) => (
           <div
             key={index}
             className="inline-flex items-center rounded-md bg-blue-500 px-2 py-1 text-sm text-white"
+            role="listitem"
           >
             {issue.trim()}
           </div>
@@ -320,6 +332,7 @@ const PublicEmailTool: React.FC = () => {
       <input
         type="text"
         id="issues"
+        aria-label="Key Issues With Canadian Health Care System"
         placeholder="E.g., Waiting Times, Shortage of Family Doctors, No MRI Machines"
         value={issues}
         onChange={(e) => setIssues(e.target.value)}
@@ -337,6 +350,7 @@ const PublicEmailTool: React.FC = () => {
           </label>
           <select
             id="language"
+            aria-label="Preferred Language"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
             className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -358,6 +372,7 @@ const PublicEmailTool: React.FC = () => {
           </label>
           <select
             id="tone"
+            aria-label="Tone of the Email"
             value={tone}
             onChange={(e) => setTone(e.target.value)}
             className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -379,6 +394,7 @@ const PublicEmailTool: React.FC = () => {
       <input
         type="text"
         id="fromName"
+        aria-label="Your Name"
         value={fromName}
         onChange={(e) => setFromName(e.target.value)}
         className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -397,6 +413,7 @@ const PublicEmailTool: React.FC = () => {
           </label>
           <select
             id="province"
+            aria-label="Province"
             value={province}
             onChange={(e) => setProvince(e.target.value)}
             className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -431,6 +448,7 @@ const PublicEmailTool: React.FC = () => {
           <input
             type="text"
             id="city"
+            aria-label="City"
             value={city}
             onChange={(e) => setCity(e.target.value)}
             className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -447,6 +465,7 @@ const PublicEmailTool: React.FC = () => {
       </label>
       <select
         id="isDoctor"
+        aria-label="Do you work in the Health Sector?"
         value={isDoctor.toString()}
         onChange={(e) => setIsDoctor(e.target.value === "true")}
         className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -468,6 +487,7 @@ const PublicEmailTool: React.FC = () => {
               <input
                 type="text"
                 id="profession"
+                aria-label="Profession"
                 value={profession}
                 onChange={(e) => setProfession(e.target.value)}
                 className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -487,6 +507,7 @@ const PublicEmailTool: React.FC = () => {
               <input
                 type="text"
                 id="experience"
+                aria-label="Experience"
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
                 className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -507,6 +528,7 @@ const PublicEmailTool: React.FC = () => {
       </label>
       <select
         id="followup"
+        aria-label="Demand Follow-up"
         value={followup}
         onChange={(e) => setFollowup(e.target.value)}
         className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -528,6 +550,7 @@ const PublicEmailTool: React.FC = () => {
         <input
           type="text"
           id="searchQuery"
+          aria-label="Search MP by Name or Province/Territory"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full rounded-md bg-gray-50 px-4 py-2 pl-10 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
@@ -535,10 +558,16 @@ const PublicEmailTool: React.FC = () => {
           disabled={!cookiesEnabled}
           autoComplete="off"
         />
-        <MdPersonSearch className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-300" />
+        <MdPersonSearch
+          className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-300"
+          aria-hidden="true"
+        />
       </div>
       {searchQuery && filteredContacts.length > 0 && (
-        <ul className="mt-4 max-h-60 overflow-y-auto rounded-md bg-gray-50 p-2 text-xs shadow-sm dark:bg-gray-800 sm:max-h-40 sm:text-sm">
+        <ul
+          className="mt-4 max-h-60 overflow-y-auto rounded-md bg-gray-50 p-2 text-xs shadow-sm dark:bg-gray-800 sm:max-h-40 sm:text-sm"
+          role="listbox"
+        >
           {filteredContacts.map((contact, index) => (
             <li
               key={index}
@@ -550,6 +579,10 @@ const PublicEmailTool: React.FC = () => {
                 setToEmail(contact.Contact);
                 setMPName(contact.Name);
               }}
+              role="option"
+              aria-selected="false"
+              tabIndex={0}
+              onKeyDown={(event) => handleKeyDown(event, contact)}
             >
               {contact.Name} ({contact.Constituency} |{" "}
               {contact.ProvinceTerritory}) - {contact.Govt}
@@ -567,16 +600,21 @@ const PublicEmailTool: React.FC = () => {
         <input
           type="text"
           id="toEmail"
+          aria-label="Copy Your MP/MPP/MLA's Email"
           value={toEmail}
           readOnly
           autoComplete="off"
           className="w-full cursor-not-allowed rounded-md bg-gray-50 px-4 py-2 pl-10 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
           placeholder="MP/MPP/MLA's Email will appear here"
         />
-        <MdEmail className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-300" />
+        <MdEmail
+          className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-300"
+          aria-hidden="true"
+        />
         <button
           onClick={handleEmailCopyToClipboard}
           className="absolute right-3 top-2.5 text-gray-400 dark:text-gray-300"
+          aria-label="Copy email to clipboard"
         >
           {showSuccessCopied ? (
             <MdOutlineLibraryAddCheck />
@@ -597,6 +635,7 @@ const PublicEmailTool: React.FC = () => {
               ? "cursor-not-allowed bg-gradient-to-r from-gray-400 to-gray-500 text-white" // Change color during streaming
               : "transform bg-gradient-to-r from-gray-700 to-gray-800 text-white"
           }`}
+          aria-label="Compose Email With AI"
         >
           {isStreaming ? (
             <>
@@ -612,7 +651,7 @@ const PublicEmailTool: React.FC = () => {
                   cy="12"
                   r="10"
                   stroke="currentColor"
-                  stroke-width="4"
+                  strokeWidth="4"
                 ></circle>
                 <path
                   className="opacity-75"
@@ -631,6 +670,7 @@ const PublicEmailTool: React.FC = () => {
           onClick={() => setData("")}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
           disabled={isStreaming || !cookiesEnabled}
+          aria-label="Clear Data"
         >
           Clear Data
         </button>
@@ -638,6 +678,7 @@ const PublicEmailTool: React.FC = () => {
           onClick={handleCopyToClipboard}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
           disabled={isStreaming || !cookiesEnabled}
+          aria-label="Copy AI Email to Clipboard"
         >
           Copy AI Email to Clipboard
         </button>
@@ -645,24 +686,29 @@ const PublicEmailTool: React.FC = () => {
           onClick={handleSendEmail}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
           disabled={isStreaming || !cookiesEnabled}
+          aria-label="Send Email"
         >
           Send Email
         </button>
       </div>
       {showSuccessAlert && (
-        <div className="mt-4 rounded-md bg-green-200 p-2 text-green-700">
+        <div
+          className="mt-4 rounded-md bg-green-200 p-2 text-green-700"
+          role="alert"
+        >
           Data copied to clipboard successfully!
         </div>
       )}
       <div
-        className="break-word mt-6 max-w-full overflow-auto break-words "
+        className="break-word mt-6 max-w-full overflow-auto break-words"
         id="StreamingContent"
         ref={dataRef}
         // style={{ overflow: "hidden" }}
         dangerouslySetInnerHTML={{ __html: data }}
+        aria-live="polite"
       ></div>
-      <div id="streaming-end">
-        {/* {!isStreaming && (
+      <div id="streaming-end"></div>
+      {/* {!isStreaming && (
           <button
             onClick={handleCopyToClipboard}
             className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
@@ -671,7 +717,6 @@ const PublicEmailTool: React.FC = () => {
             <MdOutlineContentCopy />
           </button>
         )} */}
-      </div>
     </div>
   );
 };

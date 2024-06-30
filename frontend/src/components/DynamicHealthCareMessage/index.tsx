@@ -58,7 +58,7 @@ const DynamicHealthCareMessage = () => {
       <h1 className="mb-6 text-3xl leading-snug text-white sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]">
         Canadian Health Care System
         <br />
-        <span className="bg-gradient-to-r from-fuchsia-600 via-violet-600 to-pink-600 bg-clip-text uppercase text-transparent">
+        <span className="bg-gradient-to-r from-orange-500 via-pink-600 to-purple-500 bg-clip-text uppercase text-transparent">
           <ReactTyped
             strings={issues}
             typeSpeed={50}
