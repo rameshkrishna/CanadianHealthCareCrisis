@@ -233,6 +233,7 @@ const PublicEmailTool: React.FC = () => {
 
     // Function to strip HTML tags using DOMParser
     const stripHtml = (html: string) => {
+      html = html.replace(/<br\s*\/?>/gi, "\n"); // Replace <br> tags with newlines
       const doc = new DOMParser().parseFromString(html, "text/html");
       return doc.body.textContent || "";
     };
