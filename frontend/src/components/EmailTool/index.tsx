@@ -230,19 +230,27 @@ const PublicEmailTool: React.FC = () => {
     if (isStreaming || !csrfToken) {
       return; // Wait until streaming is done | reject
     }
-    let body = data
-      .replace(/<br\s*\/?>/gi, "\n")
-      .replace(/<\/?li\s*\/?>/gi, "\n");
-    const regex = /Subject:\s*(.*)/;
-    const match = body.match(regex);
+
+    // Function to strip HTML tags using DOMParser
+    const stripHtml = (html: string) => {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      return doc.body.textContent || "";
+    };
+
+    let body = stripHtml(data);
+    const subjectMatch = body.match(/Subject:\s*(.*)/);
     let subject = "";
-    if (match) {
-      subject = match[1].trim();
-      body = body.replace(regex, "");
+    if (subjectMatch) {
+      subject = subjectMatch[1].trim();
+      body = body.replace(/Subject:\s*.*/, "");
     }
-    const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(
+
+    // Encode subject and body to ensure they are properly formatted for a mailto link
+    const mailtoLink = `mailto:${encodeURIComponent(toEmail)}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
+
+    // Open the mail client
     window.location.href = mailtoLink;
   };
 
