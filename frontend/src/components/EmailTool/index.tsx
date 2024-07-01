@@ -305,6 +305,7 @@ const PublicEmailTool: React.FC = () => {
         onChange={(e) => setEndpoint(e.target.value)}
         className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
+        style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
       >
         <option value="Google">Google Tool</option>
         <option value="OpenAI">OpenAI Tool</option>
@@ -338,6 +339,7 @@ const PublicEmailTool: React.FC = () => {
         onChange={(e) => setIssues(e.target.value)}
         className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
+        style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
       />
       {errors.issues && <p className="text-sm text-red-600">{errors.issues}</p>}
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -355,6 +357,7 @@ const PublicEmailTool: React.FC = () => {
             onChange={(e) => setLanguage(e.target.value)}
             className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
             disabled={!cookiesEnabled}
+            style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
           >
             <option value="en">English</option>
             <option value="fr">French</option>
@@ -377,6 +380,7 @@ const PublicEmailTool: React.FC = () => {
             onChange={(e) => setTone(e.target.value)}
             className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
             disabled={!cookiesEnabled}
+            style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
           >
             <option value="formal">Formal</option>
             <option value="friendly">Friendly</option>
@@ -399,6 +403,7 @@ const PublicEmailTool: React.FC = () => {
         onChange={(e) => setFromName(e.target.value)}
         className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
+        style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
       />
       {errors.fromName && (
         <p className="text-sm text-red-600">{errors.fromName}</p>
@@ -418,6 +423,7 @@ const PublicEmailTool: React.FC = () => {
             onChange={(e) => setProvince(e.target.value)}
             className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
             disabled={!cookiesEnabled}
+            style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
           >
             <option value="">Select a province</option>
             <option value="AB">Alberta</option>
@@ -453,6 +459,7 @@ const PublicEmailTool: React.FC = () => {
             onChange={(e) => setCity(e.target.value)}
             className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
             disabled={!cookiesEnabled}
+            style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
           />
           {errors.city && <p className="text-sm text-red-600">{errors.city}</p>}
         </div>
@@ -470,6 +477,7 @@ const PublicEmailTool: React.FC = () => {
         onChange={(e) => setIsDoctor(e.target.value === "true")}
         className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
+        style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
       >
         <option value="false">No</option>
         <option value="true">Yes</option>
@@ -492,6 +500,7 @@ const PublicEmailTool: React.FC = () => {
                 onChange={(e) => setProfession(e.target.value)}
                 className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
                 disabled={!cookiesEnabled}
+                style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
               />
               {errors.profession && (
                 <p className="text-sm text-red-600">{errors.profession}</p>
@@ -512,6 +521,7 @@ const PublicEmailTool: React.FC = () => {
                 onChange={(e) => setExperience(e.target.value)}
                 className="mt-4 w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
                 disabled={!cookiesEnabled}
+                style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
               />
               {errors.experience && (
                 <p className="text-sm text-red-600">{errors.experience}</p>
@@ -533,6 +543,7 @@ const PublicEmailTool: React.FC = () => {
         onChange={(e) => setFollowup(e.target.value)}
         className="w-full rounded-md bg-gray-50 px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
         disabled={!cookiesEnabled}
+        style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
       >
         <option value="Yes">Yes</option>
         <option value="No">No</option>
@@ -557,6 +568,7 @@ const PublicEmailTool: React.FC = () => {
           placeholder="Type MP's name or province/territory"
           disabled={!cookiesEnabled}
           autoComplete="off"
+          style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
         />
         <MdPersonSearch
           className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-300"
@@ -606,6 +618,7 @@ const PublicEmailTool: React.FC = () => {
           autoComplete="off"
           className="w-full cursor-not-allowed rounded-md bg-gray-50 px-4 py-2 pl-10 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
           placeholder="MP/MPP/MLA's Email will appear here"
+          style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
         />
         <MdEmail
           className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-300"
@@ -636,6 +649,7 @@ const PublicEmailTool: React.FC = () => {
               : "transform bg-gradient-to-r from-gray-700 to-gray-800 text-white"
           }`}
           aria-label="Compose Email With AI"
+          style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
         >
           {isStreaming ? (
             <>
@@ -671,6 +685,7 @@ const PublicEmailTool: React.FC = () => {
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
           disabled={isStreaming || !cookiesEnabled}
           aria-label="Clear Data"
+          style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
         >
           Clear Data
         </button>
@@ -679,6 +694,7 @@ const PublicEmailTool: React.FC = () => {
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
           disabled={isStreaming || !cookiesEnabled}
           aria-label="Copy AI Email to Clipboard"
+          style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
         >
           Copy AI Email to Clipboard
         </button>
@@ -687,6 +703,7 @@ const PublicEmailTool: React.FC = () => {
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
           disabled={isStreaming || !cookiesEnabled}
           aria-label="Send Email"
+          style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
         >
           Send Email
         </button>
