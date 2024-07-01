@@ -13,6 +13,7 @@ import {
   MdEmail,
   MdOutlineLibraryAddCheck,
 } from "react-icons/md";
+import { BsArrowRepeat } from "react-icons/bs";
 import { fetchCsrfToken } from "@/utils/CsrfToken";
 
 // Define the validation schema
@@ -51,6 +52,8 @@ const PublicEmailTool: React.FC = () => {
   const [errors, setErrors] = useState<any>({});
   const [showSuccessAlert, setShowSuccessAlert] = useState<boolean>(false);
   const [showSuccessCopied, setSuccessShowCopied] = useState<boolean>(false);
+  const [showStreamingEndAction, setStreamingEndAction] =
+    useState<boolean>(false);
   const [cookiesEnabled, setCookiesEnabled] = useState<boolean>(true);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -89,6 +92,7 @@ const PublicEmailTool: React.FC = () => {
         .then(() => {
           setShowSuccessAlert(true); // Show success alert
           setTimeout(() => setShowSuccessAlert(false), 3000); // Hide alert after 3 seconds
+
           event("streaming_copy", {
             category: "Email",
             label: "CopyEmailContent",
@@ -119,6 +123,7 @@ const PublicEmailTool: React.FC = () => {
 
     // Clear existing data when starting a new stream
     setData("");
+    setStreamingEndAction(false);
 
     // Validate the form data
     const result = formSchema.safeParse({
@@ -185,6 +190,7 @@ const PublicEmailTool: React.FC = () => {
         if (eventData.status === "DONE") {
           setData((prevData: string) => prevData + allSources);
           setIsStreaming(false);
+          setStreamingEndAction(true);
           return;
         }
         if (eventData.response) {
@@ -643,7 +649,7 @@ const PublicEmailTool: React.FC = () => {
         <button
           onClick={handleStreaming}
           disabled={isStreaming || !cookiesEnabled}
-          className={`inline-flex flex-1 items-center justify-center rounded-md px-6 py-3 text-lg font-semibold transition duration-300 ${
+          className={`inline-flex flex-1 items-center justify-center rounded-md px-6 py-3 text-lg font-semibold hover:from-gray-600 hover:to-gray-700 ${
             isStreaming || !cookiesEnabled
               ? "cursor-not-allowed bg-gradient-to-r from-gray-400 to-gray-500 text-white" // Change color during streaming
               : "transform bg-gradient-to-r from-gray-700 to-gray-800 text-white"
@@ -680,7 +686,7 @@ const PublicEmailTool: React.FC = () => {
           )}
         </button>
 
-        <button
+        {/* <button
           onClick={() => setData("")}
           className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
           disabled={isStreaming || !cookiesEnabled}
@@ -688,10 +694,10 @@ const PublicEmailTool: React.FC = () => {
           style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
         >
           Clear Data
-        </button>
+        </button> */}
         <button
           onClick={handleCopyToClipboard}
-          className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
+          className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white hover:from-gray-600 hover:to-gray-700"
           disabled={isStreaming || !cookiesEnabled}
           aria-label="Copy AI Email to Clipboard"
           style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
@@ -700,7 +706,7 @@ const PublicEmailTool: React.FC = () => {
         </button>
         <button
           onClick={handleSendEmail}
-          className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white transition-all duration-200 ease-in-out hover:from-gray-600 hover:to-gray-700"
+          className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white hover:from-gray-600 hover:to-gray-700"
           disabled={isStreaming || !cookiesEnabled}
           aria-label="Send Email"
           style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
@@ -724,16 +730,30 @@ const PublicEmailTool: React.FC = () => {
         dangerouslySetInnerHTML={{ __html: data }}
         aria-live="polite"
       ></div>
-      <div id="streaming-end"></div>
-      {/* {!isStreaming && (
-          <button
-            onClick={handleCopyToClipboard}
-            className="inline-block flex-1 rounded bg-gradient-to-r from-gray-700 to-gray-800 px-6 py-3 font-bold text-white"
-            disabled={isStreaming || !cookiesEnabled}
-          >
-            <MdOutlineContentCopy />
-          </button>
-        )} */}
+      <div id="streaming-end" className="mt-4">
+        {showStreamingEndAction && (
+          <div className="flex space-x-2 text-lg">
+            {" "}
+            {/* Added space-x-4 to add horizontal space between buttons */}
+            <button
+              onClick={handleCopyToClipboard}
+              disabled={isStreaming || !cookiesEnabled}
+            >
+              {showSuccessAlert ? (
+                <span className="flex items-center">
+                  <MdOutlineLibraryAddCheck className="mr-2" />
+                  Copied!
+                </span>
+              ) : (
+                <MdOutlineContentCopy />
+              )}
+            </button>
+            <button onClick={handleStreaming}>
+              <BsArrowRepeat />
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
