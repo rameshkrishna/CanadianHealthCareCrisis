@@ -13,7 +13,7 @@ import {
   MdEmail,
   MdOutlineLibraryAddCheck,
 } from "react-icons/md";
-import { BsArrowRepeat } from "react-icons/bs";
+import { BsArrowRepeat, BsSend } from "react-icons/bs";
 import { fetchCsrfToken } from "@/utils/CsrfToken";
 
 // Define the validation schema
@@ -750,6 +750,9 @@ const PublicEmailTool: React.FC = () => {
             </button>
             <button onClick={handleStreaming}>
               <BsArrowRepeat />
+            </button>
+            <button onClick={handleSendEmail}>
+              <BsSend />
             </button>
           </div>
         )}
