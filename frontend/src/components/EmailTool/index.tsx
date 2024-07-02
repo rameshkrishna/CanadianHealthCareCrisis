@@ -702,7 +702,18 @@ const PublicEmailTool: React.FC = () => {
           aria-label="Copy AI Email to Clipboard"
           style={{ fontSize: "16px", WebkitTextSizeAdjust: "100%" }}
         >
-          Copy AI Email to Clipboard
+          {showSuccessAlert ? (
+            <>
+              <div className="center">
+                <span className="flex items-center">
+                  <MdOutlineLibraryAddCheck className="mr-2" />
+                  Copied!
+                </span>
+              </div>
+            </>
+          ) : (
+            "Copy to Clipboard"
+          )}
         </button>
         <button
           onClick={handleSendEmail}
@@ -714,14 +725,14 @@ const PublicEmailTool: React.FC = () => {
           Send Email
         </button>
       </div>
-      {showSuccessAlert && (
+      {/* {showSuccessAlert && (
         <div
           className="mt-4 rounded-md bg-green-200 p-2 text-green-700"
           role="alert"
         >
           Data copied to clipboard successfully!
         </div>
-      )}
+      )} */}
       <div
         className="break-word mt-6 max-w-full overflow-auto break-words"
         id="StreamingContent"
