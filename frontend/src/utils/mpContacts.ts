@@ -3,6 +3,7 @@ import Papa from "papaparse";
 export const fetchContacts = async (
   csrfToken: string,
   setContacts: (contacts: Contact[]) => void,
+  setHESAContacts: (contacts: Contact[]) => void,
 ) => {
   try {
     const response = await fetch(
@@ -22,6 +23,13 @@ export const fetchContacts = async (
       skipEmptyLines: true,
     });
     setContacts(parsedData.data);
+    const HESAContacts = parsedData.data.filter((contact) => {
+      return contact.HESA.toLowerCase().includes("yes");
+    });
+    setHESAContacts(HESAContacts);
+    // HESAContacts.forEach((contact) => {
+    //   console.log(contact.Contact);
+    // });
   } catch (error) {
     console.error("Error fetching contacts:", error);
   }

@@ -56,9 +56,16 @@ const PublicEmailTool: React.FC = () => {
     useState<boolean>(false);
   const [cookiesEnabled, setCookiesEnabled] = useState<boolean>(true);
   const [contacts, setContacts] = useState<Contact[]>([]);
+  const [hesaContacts, setHESAContacts] = useState<Contact[]>([]);
+  const [ccHESAContacts, setCCHESAContacts] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const dataRef = useRef<HTMLDivElement>(null);
+  const [isChecked, setIsChecked] = useState(false);
 
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    console.log(isChecked);
+  };
   useEffect(() => {
     // Check if cookies are enabled
     const checkCookiesEnabled = () => {
@@ -77,9 +84,17 @@ const PublicEmailTool: React.FC = () => {
 
   useEffect(() => {
     if (csrfToken) {
-      fetchContacts(csrfToken, setContacts);
+      fetchContacts(csrfToken, setContacts, setHESAContacts);
     }
   }, [csrfToken]);
+  useEffect(() => {
+    if (isChecked) {
+      const ccEmails = hesaContacts.map((contact) => contact.Contact);
+      setCCHESAContacts(ccEmails);
+    } else {
+      setCCHESAContacts([]);
+    }
+  }, [isChecked, hesaContacts]);
 
   const handleCopyToClipboard = () => {
     if (dataRef.current) {
@@ -255,10 +270,14 @@ const PublicEmailTool: React.FC = () => {
     }
 
     // Encode subject and body to ensure they are properly formatted for a mailto link
-    const mailtoLink = `mailto:${encodeURIComponent(toEmail)}?subject=${encodeURIComponent(
+    let mailtoLink = `mailto:${encodeURIComponent(toEmail)}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
 
+    // Add CC contacts if checkbox is checked
+    if (isChecked && ccHESAContacts.length > 0) {
+      mailtoLink += `&cc=${ccHESAContacts.join(",")}`;
+    }
     // Open the mail client
     window.location.href = mailtoLink;
   };
@@ -277,6 +296,7 @@ const PublicEmailTool: React.FC = () => {
       setSearchQuery(contact.Name + " (" + contact.ProvinceTerritory + ")");
       setToEmail(contact.Contact);
       setMPName(contact.Name);
+      // console.log(hesaContacts);
     }
   };
 
@@ -645,6 +665,19 @@ const PublicEmailTool: React.FC = () => {
       {errors.toEmail && (
         <p className="text-sm text-red-600">{errors.toEmail}</p>
       )}
+      <div className="mt-4">
+        <label className="inline-flex items-center">
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+            className="rounded border-gray-300 text-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+          <span className="ml-2 text-sm text-gray-600">
+            CC HESA Committee Members
+          </span>
+        </label>
+      </div>
       <div className="mt-6 flex flex-col gap-4 md:flex-row">
         <button
           onClick={handleStreaming}

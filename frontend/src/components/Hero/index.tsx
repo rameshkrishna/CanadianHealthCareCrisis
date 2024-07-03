@@ -6,6 +6,8 @@ import DynamicHealthCareMessage from "@/components/DynamicHealthCareMessage";
 import { FaBolt } from "react-icons/fa";
 import { MdOutlineMarkUnreadChatAlt } from "react-icons/md";
 import { YouTubeEmbed } from "@next/third-parties/google";
+
+// import HealthcareTable from "@/components/HealthCareCrisisQuotes";
 const Hero = () => {
   return (
     <>
@@ -59,6 +61,7 @@ const Hero = () => {
           </div>
         </div>
       </section>
+      {/* <HealthcareTable /> */}
     </>
   );
 };
