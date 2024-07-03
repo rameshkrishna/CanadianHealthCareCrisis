@@ -25,6 +25,16 @@ const Footer = () => {
                     you informed | <br></br>Not affiliated with any institution
                     or company in any form
                   </p>
+                  <p className="mt-4">
+                    <a
+                      href="https://github.com/rameshkrishna/CanadianHealthCareCrisis"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:underline"
+                    >
+                      Contribute on GitHub
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>

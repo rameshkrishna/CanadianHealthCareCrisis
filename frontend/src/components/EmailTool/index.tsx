@@ -182,10 +182,12 @@ const PublicEmailTool: React.FC = () => {
       mpName,
     }).toString();
 
-    const url =
-      endpoint === "Google"
-        ? `https://api.canadianhealthcarecrisis.com/LangChainGooglePrompt?${queryParams}`
-        : `https://api.canadianhealthcarecrisis.com/langChainPrompt?${queryParams}`;
+    // const url =
+    //   endpoint === "Google"
+    //     ? `https://api.canadianhealthcarecrisis.com/LangChainGooglePrompt?${queryParams}`
+    //     : `https://api.canadianhealthcarecrisis.com/langChainPrompt?${queryParams}`;
+
+    const url = `https://api.canadianhealthcarecrisis.com/langChainPrompt?${queryParams}`;
     setIsStreaming(true);
 
     event("streaming_start", {
@@ -318,7 +320,7 @@ const PublicEmailTool: React.FC = () => {
           this tool.
         </div>
       )}
-      <label
+      {/* <label
         htmlFor="endpoint"
         className="mb-2 mt-4 block text-balance text-lg font-semibold"
       >
@@ -335,7 +337,7 @@ const PublicEmailTool: React.FC = () => {
       >
         <option value="Google">Google Tool</option>
         <option value="OpenAI">OpenAI Tool</option>
-      </select>
+      </select> */}
       {errors.endpoint && (
         <p className="text-sm text-red-600">{errors.endpoint}</p>
       )}
