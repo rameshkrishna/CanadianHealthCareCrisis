@@ -60,7 +60,7 @@ const PublicEmailTool: React.FC = () => {
   const [ccHESAContacts, setCCHESAContacts] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const dataRef = useRef<HTMLDivElement>(null);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -273,10 +273,10 @@ const PublicEmailTool: React.FC = () => {
     let mailtoLink = `mailto:${encodeURIComponent(toEmail)}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
-
+    const additionalCC = "info@canadianhealthcarecrisis.com";
     // Add CC contacts if checkbox is checked
     if (isChecked && ccHESAContacts.length > 0) {
-      mailtoLink += `&cc=${ccHESAContacts.join(",")}`;
+      mailtoLink += `&cc=${ccHESAContacts.join(",")},${additionalCC}`;
     }
     // Open the mail client
     window.location.href = mailtoLink;

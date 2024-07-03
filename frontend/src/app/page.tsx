@@ -17,7 +17,7 @@ import Horizontal from "@/components/Recommendations";
 import Timeline from "@/components/Recommendations/Timeline";
 import RecCards from "@/components/Recommendations/RecCards";
 import ScrollingLogos from "@/components/ScrollingLogos";
-
+import ReportList from "@/components/Reports/reportList";
 export const metadata: Metadata = {
   title: "Canadian Health Care Crisis",
   description: "Learn Dire State of Canadian Health Crisis",
@@ -33,6 +33,7 @@ export default function Home() {
       <Hero />
       <Timeline />
       <PublicEmailTool />
+      {/* <ReportList /> */}
       {/* <Horizontal/> */}
       {/* <Reports/>
       <ScrollingLogos/> */}
