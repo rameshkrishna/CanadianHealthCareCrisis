@@ -667,16 +667,16 @@ const PublicEmailTool: React.FC = () => {
       {errors.toEmail && (
         <p className="text-sm text-red-600">{errors.toEmail}</p>
       )}
-      <div className="mt-4">
+      <div className="mt-8">
         <label className="inline-flex items-center">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={handleCheckboxChange}
-            className="rounded border-gray-300 text-gray-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="h-5 w-5 rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:focus:border-indigo-500 dark:focus:ring-indigo-600"
           />
-          <span className="ml-2 text-sm text-gray-600">
-            CC HESA Committee Members
+          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+            CC HESA Committee Members in Email
           </span>
         </label>
       </div>

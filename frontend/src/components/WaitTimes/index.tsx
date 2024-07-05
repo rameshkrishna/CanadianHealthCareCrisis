@@ -58,7 +58,7 @@ const WaitTimes = () => {
             Lack of Family Physician
           </h2>
           <p className="text-4xl font-bold">Approx. 6 Million People</p>
-          <p className="text-sm">In Canada</p>
+          <p className="text-sm">In Canada i.e 1 in 5 Canadians Lack</p>
         </div>
 
         {/* Physicians per 1,000 population */}

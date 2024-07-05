@@ -1,106 +1,95 @@
-import Link from "next/link";
-import { FC } from "react";
+import React from "react";
 
-const Reports: FC = () => {
+const reports = [
+  {
+    title:
+      "Addressing Canada's Health Workforce Crisis Report of the Standing Committee on Health",
+    siteName: "OurCommons",
+    link: "https://www.ourcommons.ca/Content/Committee/441/HESA/Reports/RP12260300/hesarp10/hesarp10-e.pdf",
+  },
+  {
+    title: "Submission to the House of Commons Standing Committee on Finance",
+    siteName: "CMA",
+    link: "https://policybase.cma.ca/viewer?file=%2Fmedia%2FBriefPDF%2FBR2023-05.pdf#page=1",
+  },
+  {
+    title: "Canadian Institute for Health Information Reports",
+    siteName: "CIHI",
+    link: "https://www.cihi.ca/en/access-data-and-reports",
+  },
+  {
+    title: "OurCare Reports",
+    siteName: "OurCare",
+    link: "https://www.ourcare.ca/reports",
+  },
+  {
+    title:
+      "Waiting Your Turn Wait Times for Health Care in Canada, 2023 Report Mackenzie Moir and Bacchus Barua with Hani Wannamaker",
+    siteName: "Fraser Institute",
+    link: "https://www.fraserinstitute.org/sites/default/files/waiting-your-turn-2023.pdf",
+  },
+  {
+    title: "Health at a Glance 2023 OECD Indicators",
+    siteName: "OECD",
+    link: "https://www.oecd.org/en/publications/health-at-a-glance-2023_7a7afb35-en/full-report.html",
+  },
+  {
+    title:
+      "Primary care for all: lessons for Canada from peer countries with high primary care attachment",
+    siteName: "CMAJ",
+    link: "https://www.cmaj.ca/content/cmaj/195/47/E1628.full.pdf",
+  },
+
+  {
+    title:
+      "Health Human Resource Policy Recommendations: Summary Briefing to the House of Commons Standing Committee on Health April 14, 2022",
+    siteName: "CMA, CNA, CFPC",
+    link: "https://policybase.cma.ca/viewer?file=%2Fmedia%2FBriefPDF%2FBR2022-11.pdf&_gl=1*1yr1tfl*_ga*NTg3MTc1NTUyLjE3MTE1NjczOTE.*_ga_91NZ7HZZ51*MTcxNTc2OTM5MS40LjEuMTcxNTc2OTQxMS40MC4wLjA.#page=1",
+  },
+];
+
+const Reports = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 p-4 dark:bg-gray-900">
-      <div className="grid w-full max-w-4xl grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="rounded-lg bg-white p-6 shadow transition-shadow duration-300 hover:shadow-lg dark:bg-gray-800">
-          <Link
-            href="https://www.cma.ca/research-and-policies/reports"
-            className="block text-center"
-          >
-            <div className="flex flex-col items-center">
-              <div className="mb-3 text-purple-600 dark:text-purple-400">
-                <svg
-                  className="h-10 w-10"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 8a1 1 0 112 0v4a1 1 0 01-2 0V8zm1 9a1 1 0 100-2 1 1 0 000 2z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-                CMA Report
-              </h2>
-              <p className="mt-2 text-gray-600 dark:text-gray-400">
-                Explore the detailed report on issues and challenges in the
-                Canadian Health Care System.
-              </p>
-              <span className="mt-4 inline-block text-purple-600 dark:text-purple-400">
-                Read More &gt;
-              </span>
-            </div>
-          </Link>
-        </div>
-        <div className="rounded-lg bg-white p-6 shadow transition-shadow duration-300 hover:shadow-lg dark:bg-gray-800">
-          <Link href="https://CIHI.ca/report.pdf" className="block text-center">
-            <div className="flex flex-col items-center">
-              <div className="mb-3 text-green-600 dark:text-green-400">
-                <svg
-                  className="h-10 w-10"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 8a1 1 0 112 0v4a1 1 0 01-2 0V8zm1 9a1 1 0 100-2 1 1 0 000 2z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-                CIHI Report
-              </h2>
-              <p className="mt-2 text-gray-600 dark:text-gray-400">
-                Explore the detailed report on issues and challenges in the
-                Canadian Health Care System.
-              </p>
-              <span className="mt-4 inline-block text-green-600 dark:text-green-400">
-                Read More &gt;
-              </span>
-            </div>
-          </Link>
-        </div>
-        <div className="rounded-lg bg-white p-6 shadow transition-shadow duration-300 hover:shadow-lg dark:bg-gray-800">
-          <Link
-            href="https://OurCare.ca/report.pdf"
-            className="block text-center"
-          >
-            <div className="flex flex-col items-center">
-              <div className="mb-3 text-red-600 dark:text-red-400">
-                <svg
-                  className="h-10 w-10"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 8a1 1 0 112 0v4a1 1 0 01-2 0V8zm1 9a1 1 0 100-2 1 1 0 000 2z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-                Our Care Report
-              </h2>
-              <p className="mt-2 text-gray-600 dark:text-gray-400">
-                Explore the detailed report on issues and challenges in the
-                Canadian Health Care System.
-              </p>
-              <span className="mt-4 inline-block text-red-600 dark:text-red-400">
-                Read More &gt;
-              </span>
-            </div>
-          </Link>
-        </div>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
+      <div className="w-full max-w-4xl px-4 py-12">
+        <h1 className="mb-8 text-3xl font-bold">Health Reports and Studies</h1>
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead className="bg-gray-50 dark:bg-gray-800">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+              >
+                Report/Study Name
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+              >
+                Institution / Org Name
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
+            {reports.map((report, index) => (
+              <tr key={index}>
+                <td className="px-6 py-4">
+                  <a
+                    href={report.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-blue-600 transition-all duration-300 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600"
+                  >
+                    {report.title}
+                  </a>
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                  {report.siteName}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
