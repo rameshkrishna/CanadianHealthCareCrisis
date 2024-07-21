@@ -61,7 +61,8 @@ const PublicEmailTool: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const dataRef = useRef<HTMLDivElement>(null);
   const [isChecked, setIsChecked] = useState(true);
-  const [message, setMessage] = useState("");
+  const [isCaptchaVerified, setCaptchaVerified] = useState<boolean>(false);
+
   const siteKey =
     process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAAbaI4y6Me6Dmdgl";
 
@@ -76,9 +77,9 @@ const PublicEmailTool: React.FC = () => {
     );
     const data = await response.json();
     if (data.success) {
-      setMessage("Verification successful!");
+      setCaptchaVerified(true);
     } else {
-      setMessage(`Verification failed: ${data.message}`);
+      setCaptchaVerified(false);
     }
   };
 
@@ -152,7 +153,10 @@ const PublicEmailTool: React.FC = () => {
   };
 
   const handleStreaming = async () => {
-    if (isStreaming || !csrfToken) {
+    if (isStreaming || !csrfToken || !isCaptchaVerified) {
+      console.log(
+        "Streaming in progress or no CSRF token or captcha not verified",
+      );
       return; // Don't allow starting multiple streams simultaneously or without CSRF token
     }
 
@@ -272,7 +276,7 @@ const PublicEmailTool: React.FC = () => {
   };
 
   const handleSendEmail = () => {
-    if (isStreaming || !csrfToken) {
+    if (isStreaming || !csrfToken || !isCaptchaVerified) {
       return; // Wait until streaming is done | reject
     }
 
