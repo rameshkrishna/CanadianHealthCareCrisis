@@ -75,7 +75,10 @@ const PublicEmailTool: React.FC = () => {
         body: JSON.stringify({ token }),
       },
     );
+
     const data = await response.json();
+    console.log(data);
+
     if (data.success) {
       setCaptchaVerified(true);
     } else {
