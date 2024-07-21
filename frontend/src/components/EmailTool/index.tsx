@@ -15,7 +15,7 @@ import {
 } from "react-icons/md";
 import { BsArrowRepeat, BsSend } from "react-icons/bs";
 import { fetchCsrfToken } from "@/utils/CsrfToken";
-
+import { TurnstileWidget } from "@/components/Turnsite";
 // Define the validation schema
 const formSchema = z.object({
   issues: z.string().min(1, "Issues are required"),
@@ -61,6 +61,26 @@ const PublicEmailTool: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const dataRef = useRef<HTMLDivElement>(null);
   const [isChecked, setIsChecked] = useState(true);
+  const [message, setMessage] = useState("");
+  const siteKey =
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAAbaI4y6Me6Dmdgl";
+
+  const handleTokenVerify = async (token: string) => {
+    const response = await fetch(
+      "https://api.canadianhealthcarecrisis.com/verifyTurnstile",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      },
+    );
+    const data = await response.json();
+    if (data.success) {
+      setMessage("Verification successful!");
+    } else {
+      setMessage(`Verification failed: ${data.message}`);
+    }
+  };
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -759,6 +779,7 @@ const PublicEmailTool: React.FC = () => {
         >
           Send Email
         </button>
+        <TurnstileWidget siteKey={siteKey} onTokenVerify={handleTokenVerify} />
       </div>
       {/* {showSuccessAlert && (
         <div
