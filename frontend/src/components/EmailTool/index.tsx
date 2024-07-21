@@ -697,6 +697,7 @@ const PublicEmailTool: React.FC = () => {
       <div className="mt-8">
         <label className="inline-flex items-center">
           <input
+            id="ccHESA"
             type="checkbox"
             checked={isChecked}
             onChange={handleCheckboxChange}
@@ -706,6 +707,9 @@ const PublicEmailTool: React.FC = () => {
             CC HESA Committee Members in Email
           </span>
         </label>
+      </div>
+      <div className="mt-8">
+        <TurnstileWidget siteKey={siteKey} onTokenVerify={handleTokenVerify} />
       </div>
       <div className="mt-6 flex flex-col gap-4 md:flex-row">
         <button
@@ -786,7 +790,6 @@ const PublicEmailTool: React.FC = () => {
         >
           Send Email
         </button>
-        <TurnstileWidget siteKey={siteKey} onTokenVerify={handleTokenVerify} />
       </div>
       {/* {showSuccessAlert && (
         <div
